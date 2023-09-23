@@ -11,6 +11,8 @@
   },
   "rules": {
     "quotes": ["error", "double"],
-    "semi": ["error", "never"]
+    "semi": ["error", "always"],
+    "@typescript-eslint/semi": "off",
+    "@typescript-eslint/quotes": "off"
   }
 }
