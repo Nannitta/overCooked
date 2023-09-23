@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
+  "display": "Node 18",
+
+  "_version": "18.16.1",
+
+  "compilerOptions": {
+    "lib": ["es2023"],
+    "module": "ES2015",
+    "target": "ES2015",
+
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "Node",
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "include": ["src/", "server.ts"]
+}
