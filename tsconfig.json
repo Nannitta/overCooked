@@ -7,7 +7,7 @@
 
   "compilerOptions": {
     "lib": ["es2023"],
-    "module": "ES2015",
+    "module": "ESNext",
     "target": "ES2015",
     "strict": true,
     "esModuleInterop": true,
@@ -18,10 +18,12 @@
     "allowUnreachableCode": false,
     "preserveValueImports": false,
     "importsNotUsedAsValues": "remove",
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "ts-node": {
     "esm": true
   },
-  "include": ["src/", "server.ts"]
+  "include": ["src/", "server.ts", "db/"]
 }
