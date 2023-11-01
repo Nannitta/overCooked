@@ -4,7 +4,7 @@ export interface User {
   userId: UUID,
   companyName: string,
   cif: string,
-  emain: string,
+  email: string,
   password: string,
   phone: string,
   address: string,
@@ -12,8 +12,8 @@ export interface User {
   country: string,
   province: string,
   postalCode: string,
-  web: string,
-  role: string,
-  createdAt: Date,
+  web?: string,
+  role?: string,
+  createdAt?: Date,
   modifiedAt?: Date
 }
