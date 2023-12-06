@@ -20,7 +20,8 @@
     "importsNotUsedAsValues": "remove",
     "verbatimModuleSyntax": true,
     "allowImportingTsExtensions": true,
-    "noEmit": true
+    "noEmit": true,
+    "noImplicitAny": false
   },
   "ts-node": {
     "esm": true
