@@ -1,16 +1,16 @@
-import { getPool }  from './connectDB.ts';
-import crypto from 'node:crypto';
+import { getPool } from "./connectDB.ts";
+import crypto from "node:crypto";
 
 const createDB = async () => {
   try {
     const pool = await getPool();
 
-    await pool.query('CREATE DATABASE IF NOT EXISTS escandallos;');
+    await pool.query("CREATE DATABASE IF NOT EXISTS escandallos;");
 
-    await pool.query('USE escandallos;');
+    await pool.query("USE escandallos;");
 
-    console.log('Deleting tables...');
-    
+    console.log("Deleting tables...");
+
     await pool.query(`DROP TABLE IF EXISTS 
       recipes_ingredients, 
       recipes, 
@@ -19,10 +19,9 @@ const createDB = async () => {
       ingredientType, 
       users_suppliers, 
       suppliers, 
-      users;`
-    );
+      users;`);
 
-    console.log('Creating tables...');
+    console.log("Creating tables...");
 
     await pool.query(`CREATE TABLE IF NOT EXISTS users (
       userId VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -38,10 +37,11 @@ const createDB = async () => {
         postalCode VARCHAR(10) NOT NULL,
         web VARCHAR(100),
         role ENUM('client', 'admin') DEFAULT 'client',
+        activationCode VARCHAR(100),
+        active TINYINT UNSIGNED NOT NUL DEFAULT 0,
         createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
-      );`
-    );
+      );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS suppliers (
       supplierId VARCHAR(50) NOT NULL PRIMARY KEY,
         supplierName VARCHAR(100) NOT NULL,
@@ -53,8 +53,7 @@ const createDB = async () => {
         responsiveName VARCHAR(100) NOT NULL,
       createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
-      );`
-    );
+      );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS users_suppliers (
       userId VARCHAR(50) NOT NULL,
       FOREIGN KEY (userId) REFERENCES users (userId)
@@ -66,15 +65,13 @@ const createDB = async () => {
             ON DELETE RESTRICT,
       createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
-      );`
-    );
+      );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS ingredientType (
       ingredientTypeId VARCHAR(50) NOT NULL PRIMARY KEY,
         ingredientTypeName VARCHAR(100) NOT NULL UNIQUE,
       createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
-      );`
-    );
+      );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS ingredients (
       ingredientId VARCHAR(50) NOT NULL PRIMARY KEY,
         ingredientName VARCHAR(100) NOT NULL,
@@ -86,8 +83,7 @@ const createDB = async () => {
             ON DELETE RESTRICT,
       createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
-      );`
-    );
+      );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS ingredients_suppliers (
       ingredientId VARCHAR(50) NOT NULL,
         FOREIGN KEY (ingredientId) REFERENCES ingredients (ingredientId)
@@ -103,8 +99,7 @@ const createDB = async () => {
         description TINYTEXT DEFAULT NULL,
       createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
-      );`
-    );
+      );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS recipes (
       recipeId VARCHAR(50) NOT NULL PRIMARY KEY,
         recipeName VARCHAR(100) NOT NULL,
@@ -114,8 +109,7 @@ const createDB = async () => {
         photoRecipe VARCHAR(100) DEFAULT NULL,
       createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
-      );`
-    );
+      );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS recipes_ingredients (
       recipeId VARCHAR(50) NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes (recipeId)
@@ -129,12 +123,14 @@ const createDB = async () => {
         measure ENUM('Kg', 'g', 'mg', 'L', 'ml') NOT NULL,
         createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
-      );`
-    );
-    
+      );`);
+
     const adminId = crypto.randomUUID();
-    await pool.query(`INSERT INTO users (userId, email, password, role, companyName, CIF, phone, address, city, country, province, postalCode)
-    VALUES (?, 'admin@admin.com', 'ABCabc123!', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin')`, [adminId]);
+    await pool.query(
+      `INSERT INTO users (userId, email, password, role, companyName, CIF, phone, address, city, country, province, postalCode)
+    VALUES (?, 'admin@admin.com', 'ABCabc123!', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin')`,
+      [adminId]
+    );
 
     process.exit(0);
   } catch (error) {
