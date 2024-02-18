@@ -2,20 +2,21 @@ import test from "node:test";
 import assert from "node:assert";
 import { FetchUser } from "../../../src/users/infrastructure/persistence/FetchUser.ts";
 import crypto from "node:crypto";
+import type { User } from '../../../src/users/domain/User.ts';
 
 const fetchUser = new FetchUser();
 
-const user = {
+const user: User = {
   userId: crypto.randomUUID(),
-  companyName: "Mar ao xeito",
-  cif: "123456L",
-  email: "maroaxeito@email.com",
+  companyName: "Nombre de ejemplo",
+  cif: "12345678A",
+  email: "ejemplo@email.com",
   password: "ABCabc123!",
-  phone: "657834923",
-  address: "Calle sin nombre 123",
-  city: "Marín",
+  phone: "657834985",
+  address: "Calle de ejemplo",
+  city: "Ejemplo",
   country: "Spain",
-  province: "Pontevedra",
+  province: "Ejemplo",
   postalCode: "365289",
 };
 
@@ -23,18 +24,14 @@ const user = {
 
 test("create user", async () => {
   const tryCreateUser = async () => {
-    try {
-      const response = await fetchUser.postUser(user);
-      console.log(response);
+    try {  
+      await fetchUser.postUser(user);
       return "ok";
-    } catch (error) {
+    } catch (err) {
       throw new Error();
     }
   };
-
-  assert.equal(tryCreateUser, "ok");
-});
-
-test("1 is equal to 1.", () => {
-  assert.strictEqual(1, 1);
+  
+  const result = await tryCreateUser();
+  assert.equal(result, "ok");
 });

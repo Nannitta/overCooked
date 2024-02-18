@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
-import { getPool } from "../../../../../db/connectDB";
-import { throwError } from "../../../../helpers/errorHelper";
+import { getPool } from "../../../../../db/connectDB.ts";
+import { throwError } from "../../../../helpers/errorHelper.ts";
 import crypto from "node:crypto";
 import type { UUID } from "crypto";
 import bcrypt from "bcrypt";
@@ -12,7 +12,6 @@ export const createUserController = async (
 ) => {
   try {
     const {
-      userId,
       companyName,
       CIF,
       email,
@@ -27,28 +26,36 @@ export const createUserController = async (
 
     const pool = await getPool();
 
+    if (!companyName && !CIF && !email && !password && !phone && !address && !city && !country && !province && !postalCode) {
+      return next(throwError("Los campos obligatorios no pueden estar vacíos", 400));
+    }
+    
     const [userEmail] = await pool.query(
       "SELECT email from users WHERE email = ?",
       [email]
     );
-    const [userCif] = await pool.query("SELECT cif from users WHERE cif = ?", [
-      CIF,
-    ]);
+    
+    const [userCif] = await pool.query(
+      "SELECT cif from users WHERE cif = ?", 
+      [CIF]
+    );
 
-    if (userEmail) {
+    if (Array.isArray(userEmail) && userEmail.length > 0) {
       return next(throwError("El email ya esta en uso", 400));
     }
-    if (userCif) {
+    if (Array.isArray(userCif) && userCif.length > 0) {
       return next(throwError("El CIF ya esta en uso", 400));
     }
 
+    const userId: UUID = crypto.randomUUID();
+
     const activationCode: UUID = crypto.randomUUID();
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword: string = await bcrypt.hash(password, 10);
 
     await pool.query(
       `INSERT INTO users (userId, companyName, CIF, email, password, phone, address, city, country, province, postalCode, activationCode, createdAt)
-      values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         userId,
         companyName,

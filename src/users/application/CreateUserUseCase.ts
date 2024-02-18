@@ -1,6 +1,5 @@
-import type { User } from '../domain/User';
-import type { UserRepository } from '../domain/UserRepository';
-import crypto from 'node:crypto';
+import type { User } from '../domain/User.ts';
+import type { UserRepository } from '../domain/UserRepository.ts';
 
 export class CreateUserUseCase {
 constructor(
@@ -8,8 +7,6 @@ constructor(
   ) {}
 
   public execute(user: User): Promise<void> {
-    const userId = crypto.randomUUID();
-    user.userId = userId;
-    return this.userRepository.postUser(user)
+    return this.userRepository.postUser(user);
   }
 }

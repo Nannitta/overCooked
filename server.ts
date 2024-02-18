@@ -1,11 +1,15 @@
 import express from "express";
 import "dotenv/config";
 import type { Request, Response } from "express";
-import type { CustomError } from "./src/helpers/errorHelper";
+import type { CustomError } from "./src/helpers/errorHelper.ts";
+import { userRouter } from './src/routes/userRoutes.ts';
 
 const { PORT } = process.env;
 
 export const app = express();
+app.use(express.json());
+
+app.use('/user', userRouter);
 
 app.use((err: CustomError, _: Request, res: Response) => {
   console.error(err);

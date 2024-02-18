@@ -38,7 +38,7 @@ const createDB = async () => {
         web VARCHAR(100),
         role ENUM('client', 'admin') DEFAULT 'client',
         activationCode VARCHAR(100),
-        active TINYINT UNSIGNED NOT NUL DEFAULT 0,
+        active TINYINT UNSIGNED NOT NULL DEFAULT 0,
         createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
       );`);
