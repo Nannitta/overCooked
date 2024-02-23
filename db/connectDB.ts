@@ -1,30 +1,27 @@
 import mysql from 'mysql2/promise';
-import "dotenv/config";
+import 'dotenv/config';
 
 const { MYSQL_USER, MYSQL_HOST, MYSQL_PASSWORD, MYSQL_DATABASE } = process.env;
 
 interface DbConfig {
   host: string
-  user:string,
+  user: string
   database: string
   password: string
   timezone: string
 }
 
 const dbConfig: DbConfig = {
-  host: MYSQL_HOST || '',
-  user: MYSQL_USER || '',
-  database: MYSQL_DATABASE || '',
-  password: MYSQL_PASSWORD || '',
+  host: MYSQL_HOST ?? '',
+  user: MYSQL_USER ?? '',
+  database: MYSQL_DATABASE ?? '',
+  password: MYSQL_PASSWORD ?? '',
   timezone: 'local'
-}
+};
 
 let pool: mysql.Pool;
 
 export const getPool = (): mysql.Pool => {
-  if (!pool) {
-    pool = mysql.createPool(dbConfig);
-  }
-
+  pool = mysql.createPool(dbConfig);
   return pool;
 };

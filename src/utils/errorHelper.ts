@@ -1,5 +1,5 @@
 export interface CustomError extends Error {
-  statusCode?: number;
+  statusCode?: number
 }
 
 export const throwError = (

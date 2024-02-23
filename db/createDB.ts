@@ -1,15 +1,15 @@
-import { getPool } from "./connectDB.ts";
-import crypto from "node:crypto";
+import { getPool } from './connectDB.ts';
+import crypto from 'node:crypto';
 
-const createDB = async () => {
+const createDB = async (): Promise<void> => {
   try {
-    const pool = await getPool();
+    const pool = getPool();
 
-    await pool.query("CREATE DATABASE IF NOT EXISTS escandallos;");
+    await pool.query('CREATE DATABASE IF NOT EXISTS escandallos;');
 
-    await pool.query("USE escandallos;");
+    await pool.query('USE escandallos;');
 
-    console.log("Deleting tables...");
+    console.log('Deleting tables...');
 
     await pool.query(`DROP TABLE IF EXISTS 
       recipes_ingredients, 
@@ -21,7 +21,7 @@ const createDB = async () => {
       suppliers, 
       users;`);
 
-    console.log("Creating tables...");
+    console.log('Creating tables...');
 
     await pool.query(`CREATE TABLE IF NOT EXISTS users (
       userId VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -139,4 +139,4 @@ const createDB = async () => {
   }
 };
 
-createDB();
+void createDB();

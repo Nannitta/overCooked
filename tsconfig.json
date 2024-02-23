@@ -1,8 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
-  "display": "Node 18",
-
   "_version": "18.16.1",
 
   "compilerOptions": {

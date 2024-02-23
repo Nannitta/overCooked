@@ -1,7 +1,14 @@
-import type { User } from './User.ts'; 
+/* import type { User } from './User.ts';
 
 export interface UserRepository {
-  postUser(
+  postUser: (
     user: User
-  ): Promise<void>
+  ) => Promise<void>
+}
+ */
+
+import type { User } from './User.ts';
+
+export interface UserRepository {
+  postUser: (user: User) => Promise<User | null>
 }
