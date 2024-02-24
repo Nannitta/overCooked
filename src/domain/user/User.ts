@@ -1,6 +1,5 @@
 export class User {
   constructor (
-    readonly userId: string,
     readonly companyName: string,
     readonly CIF: string,
     readonly email: string,
@@ -14,6 +13,7 @@ export class User {
     readonly web?: string,
     readonly role?: string,
     readonly createdAt?: Date,
-    readonly modifiedAt?: Date
+    readonly modifiedAt?: Date,
+    readonly userId?: string
   ) {};
 }
