@@ -17,8 +17,7 @@ export class UserRegisterController {
       country: req.body.country,
       province: req.body.province,
       postalCode: req.body.postalCode,
-      web: req.body.web ?? '',
-      createdAt: new Date()
+      web: req.body.web ?? ''
     };
 
     try {

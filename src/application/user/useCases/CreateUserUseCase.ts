@@ -1,5 +1,6 @@
 import type { User } from '../../../domain/user/User.ts';
 import type { UserRepository } from '../../../domain/user/UserRepository.ts';
+import { registerUserSchema } from '../../../infrastructure/user/schemas/registerUserSchema.ts';
 import { throwError, type CustomError } from '../../../infrastructure/utils/errorHelper.ts';
 import { generateUUID } from '../../../infrastructure/utils/generateUUID.ts';
 
@@ -20,6 +21,13 @@ export class CreateUserUseCase {
 
     if (userId !== null) {
       userId = generateUUID();
+    }
+
+    const { error: errorSchema } = registerUserSchema.validate(user);
+
+    if (errorSchema !== undefined) {
+      const error: CustomError = throwError(errorSchema.message, 400);
+      throw error;
     }
 
     await this.userRepository.postUser(user, id, activationCode);

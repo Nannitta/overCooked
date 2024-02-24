@@ -34,7 +34,7 @@ const createDB = async (): Promise<void> => {
         city VARCHAR(100) NOT NULL,
         country VARCHAR(100) NOT NULL,
         province VARCHAR(100) NOT NULL,
-        postalCode VARCHAR(5) NOT NULL,
+        postalCode VARCHAR(10) NOT NULL,
         web VARCHAR(100),
         role ENUM('client', 'admin') DEFAULT 'client',
         activationCode VARCHAR(100),
