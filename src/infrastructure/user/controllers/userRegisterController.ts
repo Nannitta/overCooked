@@ -1,11 +1,11 @@
 import type { CreateUserUseCase } from '../../../application/user/useCases/CreateUserUseCase.ts';
 import type { User } from '../../../domain/user/User.ts';
-import type { Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 
 export class UserRegisterController {
   constructor (private readonly createUserUseCase: CreateUserUseCase) {}
 
-  execute = async (req: Request, res: Response): Promise<void> => {
+  execute = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const user: User = {
       companyName: req.body.companyName,
       CIF: req.body.CIF,
@@ -21,8 +21,14 @@ export class UserRegisterController {
       createdAt: new Date()
     };
 
-    await this.createUserUseCase.execute(user);
-
-    res.status(200).send();
+    try {
+      await this.createUserUseCase.execute(user);
+      res.status(200).send({
+        status: 'Ok',
+        message: 'Usuario creado correctamente'
+      });
+    } catch (error) {
+      next(error);
+    }
   };
 }

@@ -27,7 +27,23 @@ export class UserRegisterPersistence implements UserRepository {
       return null;
     }
 
-    const userId = result[0]?.userId;
+    const userIdByCif: string = result[0]?.userId;
+
+    return userIdByCif;
+  }
+
+  async getUserById (id: string): Promise <string | null> {
+    const pool = getPool();
+
+    const [result] = await pool.query(
+      'SELECT userId FROM users WHERE userId = ?', [id]
+    );
+
+    if (result[0] === undefined) {
+      return null;
+    }
+
+    const userId: string = result[0]?.userId;
 
     return userId;
   }
