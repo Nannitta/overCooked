@@ -4,10 +4,10 @@ export class GetUserByCifUseCase {
   constructor (private readonly userRepository: UserRepository) {}
 
   execute = async (cif: string): Promise<string | null> => {
-    const userId = await this.userRepository.getUserIdByCif(cif);
+    const userIdByCif: string | null = await this.userRepository.getUserIdByCif(cif);
 
-    if (userId === null) return null;
+    if (userIdByCif === null) return null;
 
-    return userId;
+    return userIdByCif;
   };
 }
