@@ -2,10 +2,14 @@ import { getPool } from '../../../../db/connectDB.ts';
 import type { User } from '../../../domain/user/User.ts';
 import type { UserRepository } from '../../../domain/user/UserRepository.ts';
 import bcrypt from 'bcrypt';
+import { generateUUID } from '../../utils/generateUUID.ts';
 
-export class UserRegisterPersistence implements UserRepository {
-  async postUser (user: User, userId: string, activationCode: string): Promise<void> {
+export class UserPersistence implements UserRepository {
+  async postUser (user: User): Promise<void> {
     const pool = getPool();
+
+    const userId: string = generateUUID();
+    const activationCode: string = generateUUID();
 
     const hashedPassword: string = await bcrypt.hash(user.password, 10);
 
@@ -30,21 +34,5 @@ export class UserRegisterPersistence implements UserRepository {
     const userIdByCif: string = result[0]?.userId;
 
     return userIdByCif;
-  }
-
-  async getUserById (id: string): Promise <string | null> {
-    const pool = getPool();
-
-    const [result] = await pool.query(
-      'SELECT userId FROM users WHERE userId = ?', [id]
-    );
-
-    if (result[0] === undefined) {
-      return null;
-    }
-
-    const userId: string = result[0]?.userId;
-
-    return userId;
   }
 }

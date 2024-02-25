@@ -1,9 +1,9 @@
 import express from 'express';
 import type { Router } from 'express';
-import { userRegisterController } from '../dependencies.ts';
+import { postUserController, getUserIdByCifController } from '../dependencies.ts';
 
 const userRouter: Router = express.Router();
 
-userRouter.post('/register', userRegisterController.execute.bind(userRegisterController));
+userRouter.post('/register', getUserIdByCifController.execute.bind(getUserIdByCifController), postUserController.execute.bind(postUserController));
 
 export { userRouter };
