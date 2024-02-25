@@ -6,8 +6,6 @@ export class GetUserByCifUseCase {
   execute = async (cif: string): Promise<string | null> => {
     const userIdByCif: string | null = await this.userRepository.getUserIdByCif(cif);
 
-    if (userIdByCif === null) return null;
-
     return userIdByCif;
   };
 }
