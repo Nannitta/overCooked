@@ -1,9 +1,12 @@
 import { getPool } from './connectDB.ts';
 import crypto from 'node:crypto';
+import bcrypt from 'bcrypt';
 
 const createDB = async (): Promise<void> => {
   try {
     const pool = getPool();
+
+    const { ADMIN_PASS } = process.env;
 
     await pool.query('CREATE DATABASE IF NOT EXISTS escandallos;');
 
@@ -126,10 +129,16 @@ const createDB = async (): Promise<void> => {
       );`);
 
     const adminId = crypto.randomUUID();
+    let adminPass: string = '';
+
+    if (ADMIN_PASS !== undefined) {
+      adminPass = await bcrypt.hash(ADMIN_PASS, 10);
+    }
+
     await pool.query(
       `INSERT INTO users (userId, email, password, role, companyName, CIF, phone, address, city, country, province, postalCode)
-    VALUES (?, 'admin@admin.com', 'ABCabc123!', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin')`,
-      [adminId]
+    VALUES (?, 'admin@admin.com', ? , 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin')`,
+      [adminId, adminPass]
     );
 
     process.exit(0);
