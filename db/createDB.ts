@@ -50,29 +50,33 @@ const createDB = async (): Promise<void> => {
         supplierName VARCHAR(100) NOT NULL,
         CIF VARCHAR(15) NOT NULL UNIQUE,
         email VARCHAR(100) NOT NULL,
+        password VARCHAR(100),
         phone VARCHAR(15) NOT NULL,
         address VARCHAR(250) NOT NULL,
-        web VARCHAR(100) NOT NULL,
+        web VARCHAR(100),
         responsiveName VARCHAR(100) NOT NULL,
-      createdAt DATETIME DEFAULT NOW() NOT NULL,
+        role ENUM('internal', 'external') NOT NULL,
+        activationCode VARCHAR(100),
+        active TINYINT UNSIGNED NOT NULL DEFAULT 0,
+        createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
       );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS users_suppliers (
       userId VARCHAR(50) NOT NULL,
-      FOREIGN KEY (userId) REFERENCES users (userId)
-        ON UPDATE CASCADE
-            ON DELETE RESTRICT,
-      supplierId VARCHAR(50) NOT NULL,
+        FOREIGN KEY (userId) REFERENCES users (userId)
+          ON UPDATE CASCADE
+              ON DELETE RESTRICT,
+        supplierId VARCHAR(50) NOT NULL,
         FOREIGN KEY (supplierId) REFERENCES suppliers (supplierId)
-        ON UPDATE CASCADE
-            ON DELETE RESTRICT,
-      createdAt DATETIME DEFAULT NOW() NOT NULL,
+          ON UPDATE CASCADE
+              ON DELETE RESTRICT,
+        createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
       );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS ingredientType (
       ingredientTypeId VARCHAR(50) NOT NULL PRIMARY KEY,
         ingredientTypeName VARCHAR(100) NOT NULL UNIQUE,
-      createdAt DATETIME DEFAULT NOW() NOT NULL,
+        createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
       );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS ingredients (
@@ -82,25 +86,25 @@ const createDB = async (): Promise<void> => {
         photoIngredient VARCHAR(100) DEFAULT NULL,
         ingredientTypeId VARCHAR(50) NOT NULL,
         FOREIGN KEY (ingredientTypeId) REFERENCES ingredientType (ingredientTypeId)
-        ON UPDATE CASCADE
+          ON UPDATE CASCADE
             ON DELETE RESTRICT,
-      createdAt DATETIME DEFAULT NOW() NOT NULL,
+        createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
       );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS ingredients_suppliers (
       ingredientId VARCHAR(50) NOT NULL,
         FOREIGN KEY (ingredientId) REFERENCES ingredients (ingredientId)
-        ON UPDATE CASCADE
+          ON UPDATE CASCADE
             ON DELETE RESTRICT,
-      supplierId VARCHAR(50) NOT NULL,
+        supplierId VARCHAR(50) NOT NULL,
         FOREIGN KEY (supplierId) REFERENCES suppliers (supplierId)
-        ON UPDATE CASCADE
+          ON UPDATE CASCADE
             ON DELETE RESTRICT,
-      price DECIMAL(5,2) NOT NULL,
-      weight DECIMAL(7,2) NOT NULL,
+        price DECIMAL(5,2) NOT NULL,
+        weight DECIMAL(7,2) NOT NULL,
         countryOrigin VARCHAR(100) NOT NULL,
         description TINYTEXT DEFAULT NULL,
-      createdAt DATETIME DEFAULT NOW() NOT NULL,
+        createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
       );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS recipes (
@@ -110,19 +114,19 @@ const createDB = async (): Promise<void> => {
         type ENUM('Entrantes', 'Principal', 'Postre', 'Cóctel', 'Degustación') NOT NULL,
         margin DECIMAL(3,2) NOT NULL,
         photoRecipe VARCHAR(100) DEFAULT NULL,
-      createdAt DATETIME DEFAULT NOW() NOT NULL,
+        createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
       );`);
     await pool.query(`CREATE TABLE IF NOT EXISTS recipes_ingredients (
       recipeId VARCHAR(50) NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes (recipeId)
-        ON UPDATE CASCADE
+          ON UPDATE CASCADE
             ON DELETE RESTRICT,
-      ingredientId VARCHAR(50) NOT NULL,
+        ingredientId VARCHAR(50) NOT NULL,
         FOREIGN KEY (ingredientId) REFERENCES ingredients (ingredientId)
-        ON UPDATE CASCADE
+         ON UPDATE CASCADE
             ON DELETE RESTRICT,
-      amount DECIMAL(6,2) NOT NULL,
+        amount DECIMAL(6,2) NOT NULL,
         measure ENUM('Kg', 'g', 'mg', 'L', 'ml') NOT NULL,
         createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
@@ -137,7 +141,7 @@ const createDB = async (): Promise<void> => {
 
     await pool.query(
       `INSERT INTO users (userId, email, password, role, companyName, CIF, phone, address, city, country, province, postalCode)
-    VALUES (?, 'admin@admin.com', ? , 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin')`,
+        VALUES (?, 'admin@admin.com', ? , 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin')`,
       [adminId, adminPass]
     );
 
