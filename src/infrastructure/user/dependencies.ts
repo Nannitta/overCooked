@@ -2,7 +2,7 @@ import { CreateUserUseCase } from '../../application/user/useCases/CreateUserUse
 import { GetUserByCifUseCase } from '../../application/user/useCases/GetUserByCifUseCase.ts';
 import { GetUserIdByCifrController } from './controllers/getUserIdByCifController.ts';
 import { PostUserController } from './controllers/postUserController.ts';
-import { UserPersistence } from './persistence/userPersistence.ts';
+import { UserPersistence } from './persistence/UserPersistence.ts';
 
 const userPersistence = new UserPersistence();
 
