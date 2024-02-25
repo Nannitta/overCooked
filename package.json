@@ -43,5 +43,8 @@
   },
   "lint-staged": {
     "*.(js|ts)": "npm run lint -- --fix"
+  },
+  "validate-dependencies": {
+    "*.(.js|ts)": "depcruise --config .dependency-cruiser.cjs src"
   }
 }
