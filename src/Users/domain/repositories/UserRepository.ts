@@ -1,4 +1,4 @@
-import type { User } from './User.ts';
+import type { User } from '../entities/Users.ts';
 
 export interface UserRepository {
   postUser: (user: User) => Promise<void>

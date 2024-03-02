@@ -1,18 +1,23 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "node": true
-    },
-    "extends": "standard-with-typescript",
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "rules": {
-        "semi": "off",
-        "@typescript-eslint/semi": ["error", "always"],
-        "quotes": ["error", "single"],
-        "@typescript-eslint/no-misused-promises": ["error", {"checksVoidReturn": false}]
-    }
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": "standard-with-typescript",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": "off",
+    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      { "checksVoidReturn": false }
+    ]
+/*     "@typescript-eslint/space-before-function-paren": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "typescript-eslint/member-delimiter-style": "off" */
+  }
 }

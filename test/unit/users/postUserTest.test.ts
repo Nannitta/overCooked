@@ -1,6 +1,6 @@
 /* import test from 'node:test';
 import assert from 'node:assert';
-import { FetchUser } from '../../../src/users/infrastructure/persistence/FetchUser.ts';
+import { FetchUser } from '../../../src/users/infraestructure/persistence/FetchUser.ts';
 import type { User } from '../../../src/users/domain/User.ts';
 import { generateUUID } from '../../../src/utils/generateUUID.ts';
 

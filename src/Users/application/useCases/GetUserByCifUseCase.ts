@@ -1,10 +1,12 @@
-import type { UserRepository } from '../../../domain/user/UserRepository.ts';
+import type { UserRepository } from '../../domain/repositories/UserRepository.ts';
 
 export class GetUserByCifUseCase {
   constructor (private readonly userRepository: UserRepository) {}
 
   execute = async (cif: string): Promise<string | null> => {
-    const userIdByCif: string | null = await this.userRepository.getUserIdByCif(cif);
+    const userIdByCif: string | null = await this.userRepository.getUserIdByCif(
+      cif
+    );
 
     return userIdByCif;
   };

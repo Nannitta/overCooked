@@ -1,13 +1,20 @@
-import type { CreateUserUseCase } from '../../../application/user/useCases/CreateUserUseCase.ts';
-import type { User } from '../../../domain/user/User.ts';
+import type { CreateUserUseCase } from '../../application/useCases/CreateUserUseCase.ts';
+import type { User } from '../../domain/entities/User.ts';
 import type { NextFunction, Request, Response } from 'express';
 import { registerUserSchema } from '../schemas/registerUserSchema.ts';
-import { throwError, type CustomError } from '../../utils/errorHelper.ts';
+import {
+  throwError,
+  type CustomError
+} from '../../../shared/infraestructure/utils/errorHelper.ts';
 
 export class PostUserController {
   constructor (private readonly createUserUseCase: CreateUserUseCase) {}
 
-  execute = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  execute = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     const user: User = {
       companyName: req.body.companyName,
       CIF: req.body.CIF,
