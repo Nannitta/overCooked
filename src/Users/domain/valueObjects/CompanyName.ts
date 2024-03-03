@@ -18,6 +18,6 @@ export class CompanyName {
   }
 
   private static format(companyName: string): string {
-    return companyName.trim().toLowerCase();
+    return companyName.trim();
   }
 }

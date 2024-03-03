@@ -12,4 +12,9 @@ describe("Create user useCase", () => {
     expect(() => CompanyName.create(companyNameLength1)).toThrow(throwError("El nombre de la empresa debe tener entre 2 y 100 caracteres", 403));
     expect(() => CompanyName.create(companyNameLength101)).toThrow(throwError("El nombre de la empresa debe tener entre 2 y 100 caracteres", 403));
   });
+
+  it("Should create a valid companyName", () => {
+    const companyName = CompanyName.create("Mar ao Xeito").getCompanyName();
+    expect(companyName).toBe(("Mar ao Xeito"));
+  });
 });
