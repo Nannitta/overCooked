@@ -15,9 +15,11 @@
     "@typescript-eslint/no-misused-promises": [
       "error",
       { "checksVoidReturn": false }
+    ],
+    "@typescript-eslint/strict-boolean-expressions": [
+      {
+        "allowString": true
+      }
     ]
-/*     "@typescript-eslint/space-before-function-paren": "off",
-    "@typescript-eslint/comma-dangle": "off",
-    "typescript-eslint/member-delimiter-style": "off" */
   }
 }
