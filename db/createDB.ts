@@ -1,6 +1,6 @@
-import { getPool } from './connectDB.ts';
-import crypto from 'node:crypto';
-import bcrypt from 'bcrypt';
+import { getPool } from "./connectDB.ts";
+import crypto from "node:crypto";
+import bcrypt from "bcrypt";
 
 const createDB = async (): Promise<void> => {
   try {
@@ -8,11 +8,11 @@ const createDB = async (): Promise<void> => {
 
     const { ADMIN_PASS } = process.env;
 
-    await pool.query('CREATE DATABASE IF NOT EXISTS escandallos;');
+    await pool.query("CREATE DATABASE IF NOT EXISTS escandallos;");
 
-    await pool.query('USE escandallos;');
+    await pool.query("USE escandallos;");
 
-    console.log('Deleting tables...');
+    console.log("Deleting tables...");
 
     await pool.query(`DROP TABLE IF EXISTS 
       recipes_ingredients, 
@@ -24,7 +24,7 @@ const createDB = async (): Promise<void> => {
       suppliers, 
       users;`);
 
-    console.log('Creating tables...');
+    console.log("Creating tables...");
 
     await pool.query(`CREATE TABLE IF NOT EXISTS users (
       userId VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -133,15 +133,15 @@ const createDB = async (): Promise<void> => {
       );`);
 
     const adminId = crypto.randomUUID();
-    let adminPass: string = '';
+    let adminPass: string = "";
 
     if (ADMIN_PASS !== undefined) {
       adminPass = await bcrypt.hash(ADMIN_PASS, 10);
     }
 
     await pool.query(
-      `INSERT INTO users (userId, email, password, role, companyName, CIF, phone, address, city, country, province, postalCode)
-        VALUES (?, 'admin@admin.com', ? , 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin')`,
+      `INSERT INTO users (userId, email, password, role, companyName, CIF, phone, address, city, country, province, postalCode, active)
+        VALUES (?, 'admin@admin.com', ? , 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 1)`,
       [adminId, adminPass]
     );
 

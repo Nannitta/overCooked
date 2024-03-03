@@ -1,10 +1,5 @@
 import type { CreateUserUseCase } from "../../application/useCases/CreateUserUseCase.ts";
-import type { User } from "../../domain/entities/User.ts";
 import type { NextFunction, Request, Response } from "express";
-import {
-  throwError,
-  type CustomError,
-} from "../../../shared/infraestructure/utils/errorHelper.ts";
 
 export class PostUserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
@@ -16,17 +11,17 @@ export class PostUserController {
   ): Promise<void> => {
     try {
       await this.createUserUseCase.execute(
-        req.body.companyName,
-        req.body.CIF,
-        req.body.email,
-        req.body.password,
-        req.body.phone,
-        req.body.address,
-        req.body.city,
-        req.body.country,
-        req.body.province,
-        req.body.postalCode,
-        req.body.web ?? ""
+        req.body.companyName as string,
+        req.body.CIF as string,
+        req.body.email as string,
+        req.body.password as string,
+        req.body.phone as string,
+        req.body.address as string,
+        req.body.city as string,
+        req.body.country as string,
+        req.body.province as string,
+        req.body.postalCode as string,
+        (req.body.web ?? "") as string || undefined
       );
       res.status(200).send({
         status: "Ok",

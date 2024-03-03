@@ -1,8 +1,9 @@
-import { getPool } from '../../../../db/connectDB.ts';
-import type { User } from '../../domain/entities/User.ts';
-import type { UserRepository } from '../../domain/repositories/UserRepository.ts';
-import bcrypt from 'bcrypt';
-import { generateUUID } from '../../../shared/infraestructure/utils/generateUUID.ts';
+import { getPool } from "../../../../db/connectDB.ts";
+import type { User } from "../../domain/entities/User.ts";
+import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import bcrypt from "bcrypt";
+import { generateUUID } from "../../../shared/infraestructure/utils/generateUUID.ts";
+import type { Cif } from "../../domain/valueObjects/Cif.ts";
 
 export class UserPersistence implements UserRepository {
   async postUser (user: User): Promise<void> {
@@ -19,7 +20,7 @@ export class UserPersistence implements UserRepository {
       [
         userId,
         user.companyName,
-        user.CIF,
+        user.cif,
         user.email,
         hashedPassword,
         user.phone,
@@ -35,19 +36,19 @@ export class UserPersistence implements UserRepository {
     );
   }
 
-  async getUserIdByCif (cif: string): Promise<string | null> {
+  async getUserIdByCif (cif: Cif): Promise<string | null> {
     const pool = getPool();
 
     const [result] = await pool.query(
-      'SELECT userId FROM users WHERE CIF = ?',
-      [cif]
+      "SELECT userId FROM users WHERE CIF = ?",
+      [cif.cif]
     );
 
     if (result[0] === undefined) {
       return null;
     }
 
-    const userIdByCif: string = result[0]?.userId;
+    const userIdByCif = result[0]?.userId;
 
     return userIdByCif;
   }

@@ -1,19 +1,4 @@
-import Joi from 'joi';
-
-export const registerUserSchema = Joi.object({
-  companyName: Joi.string().min(2).max(100).required().messages({
-    'string.empty': 'El nombre de la empresa no puede estar vacío',
-    'string.min': 'El nombre de la empresa debe tener mínimo 2 caracteres.',
-    'string.max': 'El nombre de la empresa no puede tener más de 100 caracteres.',
-    'any.required': 'El nombre de la empresa es obligatorio.'
-  }),
-  CIF: Joi.string().min(9).max(9).required().pattern(/^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/).messages({
-    'string.empty': 'El CIF de la empresa no puede estar vacío',
-    'string.min': 'El CIF de la empresa debe tener mínimo 9 caracteres.',
-    'string.max': 'El CIF de la empresa no puede tener más de 9 caracteres.',
-    'any.required': 'El CIF de la empresa es obligatorio.',
-    'string.pattern.base': 'El CIF debe tener un formato válido.'
-  }),
+/*
   email: Joi.string().email().max(100).required().messages({
     'string.empty': 'El email no puede estar vacío',
     'string.email': 'El email no es válido',
@@ -65,3 +50,4 @@ export const registerUserSchema = Joi.object({
     'string.domain': 'La url de la web debe ser un dominio válido.'
   }))
 });
+ */
