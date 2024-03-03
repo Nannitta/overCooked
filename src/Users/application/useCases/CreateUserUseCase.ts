@@ -1,5 +1,7 @@
+import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
 import { User } from "../../domain/entities/User.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import { Cif } from "../../domain/valueObjects/Cif.ts";
 import { CompanyName } from "../../domain/valueObjects/CompanyName.ts";
 
 export class CreateUserUseCase {
@@ -22,9 +24,15 @@ export class CreateUserUseCase {
     modifiedAt?: Date,
     userId?: string
   ): Promise<void> => {
+    const companyNamePersistence = CompanyName.create(companyName);
+    const cifPersistence = Cif.create(CIF);
+    const idUser = await this.userRepository.getUserIdByCif(cifPersistence);
+
+    if(idUser) throw throwError("El CIF indicado ya está en uso", 403);
+
     const user = User.create(
-      companyName,
-      CIF,
+      companyNamePersistence,
+      cifPersistence,
       email,
       password,
       phone,

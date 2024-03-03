@@ -1,15 +1,10 @@
-import { CompanyName } from "../valueObjects/CompanyName.ts";
-import {
-  type CustomError,
-  throwError,
-} from "../../../shared/infraestructure/utils/errorHelper.ts";
+import type { Cif } from "../valueObjects/Cif.ts";
+import type { CompanyName } from "../valueObjects/CompanyName.ts";
 
 export class User {
-  public readonly companyName: CompanyName;
-
   private constructor(
-    companyName: CompanyName,
-    public readonly CIF: string,
+    public readonly companyName: string,
+    public readonly cif: string,
     public readonly email: string,
     public readonly password: string,
     public readonly phone: string,
@@ -28,8 +23,8 @@ export class User {
   }
 
   public static create(
-    companyNameData: string,
-    CIF: string,
+    companyName: CompanyName,
+    cif: Cif,
     email: string,
     password: string,
     phone: string,
@@ -44,11 +39,9 @@ export class User {
     modifiedAt?: Date,
     userId?: string
   ): User {
-    const companyName = CompanyName.create(companyNameData);
-
     return new User(
-      companyName,
-      CIF,
+      companyName.getCompanyName(),
+      cif.getCif(),
       email,
       password,
       phone,
