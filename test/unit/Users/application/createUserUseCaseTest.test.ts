@@ -1,5 +1,6 @@
 import { Cif } from "../../../../src/Users/domain/valueObjects/Cif.ts";
 import { CompanyName } from "../../../../src/Users/domain/valueObjects/CompanyName.ts";
+import { Email } from "../../../../src/Users/domain/valueObjects/Email.ts";
 import { throwError } from "../../../../src/shared/infraestructure/utils/errorHelper.ts";
 
 describe("Create user useCase", () => {
@@ -31,5 +32,24 @@ describe("Create user useCase", () => {
   it("Should create a valid cif", () => {
     const cif = Cif.create("A1234567A").getCif();
     expect(cif).toBe("A1234567A");
+  });
+
+  it("Should throw an error when given an empty email", () => {
+    expect(() => Email.create("")).toThrow(throwError("El email es obligatorio.", 403));
+  });
+
+  it("Should throw an error when given email with incorrect length", () => {
+    const emailLength101 = "ejemplo123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890@example.com";
+    expect(() => Email.create(emailLength101)).toThrow(throwError("El email no puede tener más de 100 caracteres.", 403));
+  });
+
+  it("Should throw an error when given email with incorrect format", () => {
+    const email = "ejemploejemplo.com";
+    expect(() => Email.create(email)).toThrow(throwError("El email debe tener un formato válido.", 403));
+  });
+
+  it("Should create a valid email", () => {
+    const email = Email.create("ejemplo@ejemplo.com").getEmail();
+    expect(email).toBe("ejemplo@ejemplo.com");
   });
 });
