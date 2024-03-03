@@ -14,7 +14,7 @@
     "allowUnreachableCode": false,
     "preserveValueImports": false,
     "importsNotUsedAsValues": "remove",
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "noImplicitAny": false
@@ -22,5 +22,5 @@
   "ts-node": {
     "esm": true
   },
-  "include": ["src/", "server.ts", "db/", "test/"]
+  "include": ["src/", "server.ts", "src/shared/infraestructure/db", "test/", "jest.config.mjs"]
 }

@@ -1,4 +1,4 @@
-import { getPool } from "../../../../db/connectDB.ts";
+import { getPool } from "../../../shared/infraestructure/db/connectDB.ts";
 import type { User } from "../../domain/entities/User.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import bcrypt from "bcrypt";
