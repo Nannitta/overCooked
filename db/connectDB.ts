@@ -1,5 +1,5 @@
-import mysql from 'mysql2/promise';
-import 'dotenv/config';
+import mysql from "mysql2/promise";
+import "dotenv/config";
 
 const { MYSQL_USER, MYSQL_HOST, MYSQL_PASSWORD, MYSQL_DATABASE } = process.env;
 
@@ -12,11 +12,11 @@ interface DbConfig {
 }
 
 const dbConfig: DbConfig = {
-  host: MYSQL_HOST ?? '',
-  user: MYSQL_USER ?? '',
-  database: MYSQL_DATABASE ?? '',
-  password: MYSQL_PASSWORD ?? '',
-  timezone: 'local'
+  host: MYSQL_HOST ?? "",
+  user: MYSQL_USER ?? "",
+  database: MYSQL_DATABASE ?? "",
+  password: MYSQL_PASSWORD ?? "",
+  timezone: "local"
 };
 
 let pool: mysql.Pool;
