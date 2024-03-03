@@ -1,3 +1,4 @@
+import { Cif } from "../../../../src/Users/domain/valueObjects/Cif.ts";
 import { CompanyName } from "../../../../src/Users/domain/valueObjects/CompanyName.ts";
 import { throwError } from "../../../../src/shared/infraestructure/utils/errorHelper.ts";
 
@@ -16,5 +17,19 @@ describe("Create user useCase", () => {
   it("Should create a valid companyName", () => {
     const companyName = CompanyName.create("Mar ao Xeito").getCompanyName();
     expect(companyName).toBe(("Mar ao Xeito"));
+  });
+
+  it("Should throw an error when given an empty cif", () => {
+    expect(() => Cif.create("")).toThrow(throwError("El CIF de la empresa es obligatorio.", 403));
+  });
+
+  it("Should throw an error when given cif with incorrect format", () => {
+    const cif = "123456";
+    expect(() => Cif.create(cif)).toThrow(throwError("El CIF debe tener un formato válido.", 403));
+  });
+
+  it("Should create a valid cif", () => {
+    const cif = Cif.create("A1234567A").getCif();
+    expect(cif).toBe("A1234567A");
   });
 });
