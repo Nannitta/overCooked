@@ -1,6 +1,7 @@
 import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
 import { User } from "../../domain/entities/User.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
+import { Address } from "../../domain/valueObjects/Address.ts";
 import { Cif } from "../../domain/valueObjects/Cif.ts";
 import { CompanyName } from "../../domain/valueObjects/CompanyName.ts";
 import { Email } from "../../domain/valueObjects/Email.ts";
@@ -32,6 +33,7 @@ export class CreateUserUseCase {
     const emailPersistence = Email.create(email);
     const passwordPersistence = Password.create(password);
     const phonePersistence = Phone.create(phone);
+    const addressPersistence = Address.create(address);
     const idUser = await this.userRepository.getUserIdByCif(cifPersistence);
 
     if(idUser) throw throwError("El CIF indicado ya está en uso", 403);
@@ -42,7 +44,7 @@ export class CreateUserUseCase {
       emailPersistence,
       passwordPersistence,
       phonePersistence,
-      address,
+      addressPersistence,
       city,
       country,
       province,

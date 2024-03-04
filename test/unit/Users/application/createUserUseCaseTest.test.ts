@@ -1,3 +1,4 @@
+import { Address } from "../../../../src/Users/domain/valueObjects/Address.ts";
 import { Cif } from "../../../../src/Users/domain/valueObjects/Cif.ts";
 import { CompanyName } from "../../../../src/Users/domain/valueObjects/CompanyName.ts";
 import { Email } from "../../../../src/Users/domain/valueObjects/Email.ts";
@@ -81,5 +82,21 @@ describe("Create user useCase", () => {
   it("Should create a valid phone", () => {
     const phone = "653258965";
     expect(phone).toBe("653258965");
+  });
+
+  it("Should throw an error when given an empty address", () => {
+    expect(() => Address.create("")).toThrow(throwError("La dirección de la empresa es obligatoria.", 403));
+  });
+
+  it("Should throw an error when given an address with incorrect length", () => {
+    const addressLength1 = "A";
+    const addressLength251 = "1234 Avenida de la Luna, Apartamento 567, Edificio Estrella Brillante, Sector Eclipse, Ciudad Astro, Planeta Galaxia, Sistema Estelar Vía Láctea, Galaxia Espiral, Grupo Local, Supercúmulo Virgo, Filamento Cósmico, Multiverso Infinito, Universo 1, Dimensiones Paralelas, 12345-6789";
+    expect(() => Address.create(addressLength1)).toThrow(throwError("La dirección de la empresa debe tener entre 2 y 250 caracteres.", 403));
+    expect(() => Address.create(addressLength251)).toThrow(throwError("La dirección de la empresa debe tener entre 2 y 250 caracteres.", 403));
+  });
+
+  it("Should create a valid address", () => {
+    const address = "Calle sin nombre 123";
+    expect(address).toBe("Calle sin nombre 123");
   });
 });

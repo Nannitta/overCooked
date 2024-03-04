@@ -1,10 +1,4 @@
 /*
-  address: Joi.string().min(2).max(250).required().messages({
-    'string.empty': 'La dirección de la empresa no puede estar vacía',
-    'string.min': 'La dirección de la empresa debe tener mínimo 2 caracteres.',
-    'string.max': 'La dirección de la empresa no puede tener más de 250 caracteres.',
-    'any.required': 'La dirección de la empresa es obligatoria.'
-  }),
   city: Joi.string().min(2).max(100).required().pattern(/^[A-Za-zñÑ\sáéíóúÁÉÍÓÚüÜ]+$/u).messages({
     'string.empty': 'La ciudad no puede estar vacía',
     'string.min': 'La ciudad debe tener mínimo 2 caracteres.',
