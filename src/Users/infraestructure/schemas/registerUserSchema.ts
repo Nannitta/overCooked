@@ -1,9 +1,4 @@
 /*
-  password: Joi.string().required().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-zñÑ\d@$!%*?&]{8,20}$/).messages({
-    'string.empty': 'La contraseña no puede estar vacía',
-    'string.pattern.base': 'La contraseña debe tener entre 8 y 20 caracteres, contener una minúscula, una mayúscula, un número y un caracter especial.',
-    'any.required': 'La contraseña es obligatoria'
-  }),
   phone: Joi.string().required().pattern(/^(\+?(\d{1,3}))?[-. ]?((\(\d{1,3}\))|\d{1,4})[-. ]?(\d{1,4})[-. ]?(\d{1,9})$/).messages({
     'string.empty': 'El número de teléfono no puede estar vacío',
     'string.pattern.base': 'El número de teléfono deber tener un formato válido',
