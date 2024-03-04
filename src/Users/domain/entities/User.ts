@@ -1,6 +1,7 @@
 import type { Cif } from "../valueObjects/Cif.ts";
 import type { CompanyName } from "../valueObjects/CompanyName.ts";
 import type { Email } from "../valueObjects/Email.ts";
+import type { Password } from "../valueObjects/Password.ts";
 
 export class User {
   private constructor(
@@ -25,7 +26,7 @@ export class User {
     companyName: CompanyName,
     cif: Cif,
     email: Email,
-    password: string,
+    password: Password,
     phone: string,
     address: string,
     city: string,
@@ -42,7 +43,7 @@ export class User {
       companyName.getCompanyName(),
       cif.getCif(),
       email.getEmail(),
-      password,
+      password.getPassword(),
       phone,
       address,
       city,

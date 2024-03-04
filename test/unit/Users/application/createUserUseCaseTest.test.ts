@@ -1,6 +1,7 @@
 import { Cif } from "../../../../src/Users/domain/valueObjects/Cif.ts";
 import { CompanyName } from "../../../../src/Users/domain/valueObjects/CompanyName.ts";
 import { Email } from "../../../../src/Users/domain/valueObjects/Email.ts";
+import { Password } from "../../../../src/Users/domain/valueObjects/Password.ts";
 import { throwError } from "../../../../src/shared/infraestructure/utils/errorHelper.ts";
 
 describe("Create user useCase", () => {
@@ -51,5 +52,19 @@ describe("Create user useCase", () => {
   it("Should create a valid email", () => {
     const email = Email.create("ejemplo@ejemplo.com").getEmail();
     expect(email).toBe("ejemplo@ejemplo.com");
+  });
+
+  it("Shold throw an error when given an empty password", () => {
+    expect(() => Password.create("")).toThrow(throwError("La contraseña es obligatoria.", 403));
+  });
+
+  it("Should throw an error when given password with incorrect format", () => {
+    const password = "abc123";
+    expect(() => Password.create(password)).toThrow(throwError("La contraseña debe tener entre 8 y 20 caracteres, contener una minúscula, una mayúscula, un número y un caracter especial.", 403));
+  });
+
+  it("Should create a valid password", () => {
+    const password = "ABCabc123!";
+    expect(password).toBe("ABCabc123!");
   });
 });
