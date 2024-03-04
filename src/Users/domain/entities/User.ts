@@ -1,3 +1,4 @@
+import type { Address } from "../valueObjects/Address.ts";
 import type { Cif } from "../valueObjects/Cif.ts";
 import type { CompanyName } from "../valueObjects/CompanyName.ts";
 import type { Email } from "../valueObjects/Email.ts";
@@ -29,7 +30,7 @@ export class User {
     email: Email,
     password: Password,
     phone: Phone,
-    address: string,
+    address: Address,
     city: string,
     country: string,
     province: string,
@@ -46,7 +47,7 @@ export class User {
       email.getEmail(),
       password.getPassword(),
       phone.getPhone(),
-      address,
+      address.getAddress(),
       city,
       country,
       province,
