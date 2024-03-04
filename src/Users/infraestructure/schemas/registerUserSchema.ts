@@ -1,9 +1,4 @@
 /*
-  phone: Joi.string().required().pattern(/^(\+?(\d{1,3}))?[-. ]?((\(\d{1,3}\))|\d{1,4})[-. ]?(\d{1,4})[-. ]?(\d{1,9})$/).messages({
-    'string.empty': 'El número de teléfono no puede estar vacío',
-    'string.pattern.base': 'El número de teléfono deber tener un formato válido',
-    'any.required': 'El número de teléfono es obligatorio'
-  }),
   address: Joi.string().min(2).max(250).required().messages({
     'string.empty': 'La dirección de la empresa no puede estar vacía',
     'string.min': 'La dirección de la empresa debe tener mínimo 2 caracteres.',

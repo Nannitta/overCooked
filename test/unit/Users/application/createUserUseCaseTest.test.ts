@@ -2,6 +2,7 @@ import { Cif } from "../../../../src/Users/domain/valueObjects/Cif.ts";
 import { CompanyName } from "../../../../src/Users/domain/valueObjects/CompanyName.ts";
 import { Email } from "../../../../src/Users/domain/valueObjects/Email.ts";
 import { Password } from "../../../../src/Users/domain/valueObjects/Password.ts";
+import { Phone } from "../../../../src/Users/domain/valueObjects/Phone.ts";
 import { throwError } from "../../../../src/shared/infraestructure/utils/errorHelper.ts";
 
 describe("Create user useCase", () => {
@@ -66,5 +67,19 @@ describe("Create user useCase", () => {
   it("Should create a valid password", () => {
     const password = "ABCabc123!";
     expect(password).toBe("ABCabc123!");
+  });
+
+  it("Should throw an error when given an empty phone", () => {
+    expect(() => Phone.create("")).toThrow(throwError("El número de teléfono es obligatorio.", 403));
+  });
+
+  it("Should throw an error when given phone with incorrect format", () => {
+    const phone = "65243n";
+    expect(() => Phone.create(phone)).toThrow(throwError("El número de teléfono deber tener un formato válido.", 403));
+  });
+
+  it("Should create a valid phone", () => {
+    const phone = "653258965";
+    expect(phone).toBe("653258965");
   });
 });
