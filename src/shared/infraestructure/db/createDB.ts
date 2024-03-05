@@ -21,11 +21,19 @@ const createDB = async (): Promise<void> => {
       ingredients, 
       ingredientType, 
       users_suppliers, 
-      internal_suppliers, 
-      users;`);
+      internal_suppliers,
+      users, 
+      countries;`);
 
     console.log("Creating tables...");
 
+    await pool.query(` CREATE TABLE IF NOT EXISTS countries (
+      countryName VARCHAR(50) NOT NULL PRIMARY KEY UNIQUE,
+        countryCode VARCHAR(5) NOT NULL,
+        countryPhoneCode VARCHAR(5) NOT NULL,
+        createdAt DATETIME DEFAULT NOW() NOT NULL,
+        modifiedAt DATETIME DEFAULT NULL 
+      )`);
     await pool.query(`CREATE TABLE IF NOT EXISTS users (
       userId VARCHAR(50) NOT NULL PRIMARY KEY,
         companyName VARCHAR(100) NOT NULL,
@@ -35,7 +43,10 @@ const createDB = async (): Promise<void> => {
         phone VARCHAR(15) NOT NULL,
         address VARCHAR(250) NOT NULL,
         city VARCHAR(100) NOT NULL,
-        country VARCHAR(100) NOT NULL,
+        country VARCHAR(50) NOT NULL,
+        FOREIGN KEY (country) REFERENCES countries (countryName)
+          ON DELETE RESTRICT
+          ON UPDATE CASCADE,
         province VARCHAR(100) NOT NULL,
         postalCode VARCHAR(10) NOT NULL,
         web VARCHAR(100),
@@ -127,6 +138,11 @@ const createDB = async (): Promise<void> => {
         modifiedAt DATETIME DEFAULT NULL 
       );`);
 
+    await pool.query(
+      `INSERT INTO countries (countryName, countryCode, countryPhoneCode)
+        VALUES ("España", "ES", "+34")`
+    );
+
     const adminId = crypto.randomUUID();
     let adminPass: string = "";
 
@@ -136,7 +152,7 @@ const createDB = async (): Promise<void> => {
 
     await pool.query(
       `INSERT INTO users (userId, email, password, role, companyName, CIF, phone, address, city, country, province, postalCode, active)
-        VALUES (?, 'admin@admin.com', ? , 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 1)`,
+        VALUES (?, 'admin@admin.com', ? , 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'España', 'admin', 'admin', 1)`,
       [adminId, adminPass]
     );
 

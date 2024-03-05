@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server.ts",
-    "db": "ts-node ./db/createDB.ts",
+    "db": "ts-node ./src/shared/infraestructure/db/createDB.ts",
     "lint": "eslint --ignore-path .gitignore . --ext .js,.ts",
     "lint-config": "eslint --print-config .",
     "lint:fix": "npm run lint -- --fix",
