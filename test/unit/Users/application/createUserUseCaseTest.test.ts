@@ -7,6 +7,7 @@ import { Password } from "../../../../src/Users/domain/valueObjects/Password.ts"
 import { Phone } from "../../../../src/Users/domain/valueObjects/Phone.ts";
 import { PostalCode } from "../../../../src/Users/domain/valueObjects/PostalCode.ts";
 import { Province } from "../../../../src/Users/domain/valueObjects/Province.ts";
+import { Role } from "../../../../src/Users/domain/valueObjects/Role.ts";
 import { Web } from "../../../../src/Users/domain/valueObjects/Web.ts";
 import { throwError } from "../../../../src/shared/infraestructure/utils/errorHelper.ts";
 
@@ -70,7 +71,7 @@ describe("Create user useCase", () => {
   });
 
   it("Should create a valid password", () => {
-    const password = "ABCabc123!";
+    const password = Password.create("ABCabc123!").getPassword();
     expect(password).toBe("ABCabc123!");
   });
 
@@ -84,8 +85,8 @@ describe("Create user useCase", () => {
   });
 
   it("Should create a valid phone", () => {
-    const phone = "653258965";
-    expect(phone).toBe("653258965");
+    const phone = Phone.create("+34-653258965").getPhone();
+    expect(phone).toBe("+34-653258965");
   });
 
   it("Should throw an error when given an empty address", () => {
@@ -100,7 +101,7 @@ describe("Create user useCase", () => {
   });
 
   it("Should create a valid address", () => {
-    const address = "Calle sin nombre 123";
+    const address = Address.create("Calle sin nombre 123").getAddress();
     expect(address).toBe("Calle sin nombre 123");
   });
 
@@ -121,7 +122,7 @@ describe("Create user useCase", () => {
   });
 
   it("Should create a valid city", () => {
-    const city = "Pontevedra";
+    const city = City.create("Pontevedra").getCity();
     expect(city).toBe("Pontevedra");
   });
 
@@ -135,7 +136,7 @@ describe("Create user useCase", () => {
   });
 
   it("Should create a valid province", () => {
-    const province = "Lugo";
+    const province = Province.create("Lugo").getProvince();
     expect(province).toBe("Lugo");
   });
 
@@ -149,7 +150,7 @@ describe("Create user useCase", () => {
   });
 
   it("Should create a valid postalCode", () => {
-    const postalCode = "36900";
+    const postalCode = PostalCode.create("36900").getPostalCode();
     expect(postalCode).toBe("36900");
   });
 
@@ -159,7 +160,21 @@ describe("Create user useCase", () => {
   });
 
   it("Should create a valid domain", () => {
-    const web = "https://www.ejemplo.com";
+    const web = Web.create("https://www.ejemplo.com")?.getWeb();
     expect(web).toBe("https://www.ejemplo.com");
+  });
+
+  it("Should throw an error when given an empty role", () => {
+    expect(() => Role.create("")).toThrow(throwError("Debe seleccionar un rol", 403));
+  });
+
+  it("Should throw an error when given an incorrect role", () => {
+    const role = "admin";
+    expect(() => Role.create(role)).toThrow(throwError("El rol debe ser Restaurante o Proveedor", 403));
+  });
+
+  it("Should create a valid role", () => {
+    const role = Role.create("Restaurante").getRole();
+    expect(role).toBe("Restaurante");
   });
 });

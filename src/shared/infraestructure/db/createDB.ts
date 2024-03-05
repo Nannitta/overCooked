@@ -21,7 +21,7 @@ const createDB = async (): Promise<void> => {
       ingredients, 
       ingredientType, 
       users_suppliers, 
-      suppliers, 
+      internal_suppliers, 
       users;`);
 
     console.log("Creating tables...");
@@ -39,25 +39,20 @@ const createDB = async (): Promise<void> => {
         province VARCHAR(100) NOT NULL,
         postalCode VARCHAR(10) NOT NULL,
         web VARCHAR(100),
-        role ENUM('client', 'admin') DEFAULT 'client',
+        role ENUM('restaurant', 'supplier', 'admin') NOT NULL,
         activationCode VARCHAR(100),
         active TINYINT UNSIGNED NOT NULL DEFAULT 0,
         createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
       );`);
-    await pool.query(`CREATE TABLE IF NOT EXISTS suppliers (
+    await pool.query(`CREATE TABLE IF NOT EXISTS internal_suppliers (
       supplierId VARCHAR(50) NOT NULL PRIMARY KEY,
         supplierName VARCHAR(100) NOT NULL,
-        CIF VARCHAR(15) NOT NULL UNIQUE,
-        email VARCHAR(100) NOT NULL,
-        password VARCHAR(100),
-        phone VARCHAR(15) NOT NULL,
-        address VARCHAR(250) NOT NULL,
+        CIF VARCHAR(15),
+        email VARCHAR(100),
+        phone VARCHAR(15),
+        address VARCHAR(250),
         web VARCHAR(100),
-        responsiveName VARCHAR(100) NOT NULL,
-        role ENUM('internal', 'external') NOT NULL,
-        activationCode VARCHAR(100),
-        active TINYINT UNSIGNED NOT NULL DEFAULT 0,
         createdAt DATETIME DEFAULT NOW() NOT NULL,
         modifiedAt DATETIME DEFAULT NULL 
       );`);

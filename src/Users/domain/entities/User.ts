@@ -7,6 +7,7 @@ import type { Password } from "../valueObjects/Password.ts";
 import type { Phone } from "../valueObjects/Phone.ts";
 import type { PostalCode } from "../valueObjects/PostalCode.ts";
 import type { Province } from "../valueObjects/Province.ts";
+import type { Role } from "../valueObjects/Role.ts";
 import type { Web } from "../valueObjects/Web.ts";
 
 export class User {
@@ -21,8 +22,8 @@ export class User {
     public readonly country: string,
     public readonly province: string,
     public readonly postalCode: string,
+    public readonly role: string,
     public readonly web?: string | null,
-    public readonly role?: string,
     public readonly createdAt?: Date,
     public readonly modifiedAt?: Date,
     public readonly userId?: string
@@ -40,7 +41,7 @@ export class User {
     province: Province,
     postalCode: PostalCode,
     web: Web | null,
-    role?: string,
+    role: Role,
     createdAt?: Date,
     modifiedAt?: Date,
     userId?: string
@@ -56,8 +57,8 @@ export class User {
       country,
       province.getProvince(),
       postalCode.getPostalCode(),
+      role.getRole(),
       web?.getWeb(),
-      role,
       createdAt,
       modifiedAt,
       userId

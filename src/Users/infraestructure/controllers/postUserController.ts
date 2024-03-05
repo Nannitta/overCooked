@@ -21,7 +21,8 @@ export class PostUserController {
         req.body.country as string,
         req.body.province as string,
         req.body.postalCode as string,
-        (req.body.web ?? "") as string || undefined
+        req.body.role as string,
+        (req.body.web ?? undefined) as string || undefined
       );
       res.status(200).send({
         status: "Ok",
