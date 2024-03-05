@@ -11,9 +11,6 @@
     'string.max': 'La provincia no puede tener más de 100 caracteres.',
     'any.required': 'La provincia es obligatoria.',
     'string.pattern.base': 'El nombre de la provincia solo puede tener letras y espacios.'
-  }),
-  web: Joi.alternatives().try(Joi.string().empty(''), Joi.string().uri().messages({
-    'string.domain': 'La url de la web debe ser un dominio válido.'
-  }))
+  })
 });
  */

@@ -9,6 +9,7 @@ import { Email } from "../../domain/valueObjects/Email.ts";
 import { Password } from "../../domain/valueObjects/Password.ts";
 import { Phone } from "../../domain/valueObjects/Phone.ts";
 import { PostalCode } from "../../domain/valueObjects/PostalCode.ts";
+import { Web } from "../../domain/valueObjects/Web.ts";
 
 export class CreateUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
@@ -38,6 +39,7 @@ export class CreateUserUseCase {
     const addressPersistence = Address.create(address);
     const cityPersistence = City.create(city);
     const postalCodePersistence = PostalCode.create(postalCode);
+    const webPersistence = Web.create(web);
     const idUser = await this.userRepository.getUserIdByCif(cifPersistence);
 
     if(idUser) throw throwError("El CIF indicado ya está en uso", 403);
@@ -53,7 +55,7 @@ export class CreateUserUseCase {
       country,
       province,
       postalCodePersistence,
-      web,
+      webPersistence,
       role,
       createdAt,
       modifiedAt,
