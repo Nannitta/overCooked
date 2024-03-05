@@ -6,6 +6,7 @@ import type { Email } from "../valueObjects/Email.ts";
 import type { Password } from "../valueObjects/Password.ts";
 import type { Phone } from "../valueObjects/Phone.ts";
 import type { PostalCode } from "../valueObjects/PostalCode.ts";
+import type { Province } from "../valueObjects/Province.ts";
 import type { Web } from "../valueObjects/Web.ts";
 
 export class User {
@@ -20,7 +21,7 @@ export class User {
     public readonly country: string,
     public readonly province: string,
     public readonly postalCode: string,
-    public readonly web?: string,
+    public readonly web?: string | null,
     public readonly role?: string,
     public readonly createdAt?: Date,
     public readonly modifiedAt?: Date,
@@ -36,9 +37,9 @@ export class User {
     address: Address,
     city: City,
     country: string,
-    province: string,
+    province: Province,
     postalCode: PostalCode,
-    web?: Web,
+    web: Web | null,
     role?: string,
     createdAt?: Date,
     modifiedAt?: Date,
@@ -53,7 +54,7 @@ export class User {
       address.getAddress(),
       city.getCity(),
       country,
-      province,
+      province.getProvince(),
       postalCode.getPostalCode(),
       web?.getWeb(),
       role,
