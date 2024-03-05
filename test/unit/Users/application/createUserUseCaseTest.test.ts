@@ -1,5 +1,6 @@
 import { Address } from "../../../../src/Users/domain/valueObjects/Address.ts";
 import { Cif } from "../../../../src/Users/domain/valueObjects/Cif.ts";
+import { City } from "../../../../src/Users/domain/valueObjects/City.ts";
 import { CompanyName } from "../../../../src/Users/domain/valueObjects/CompanyName.ts";
 import { Email } from "../../../../src/Users/domain/valueObjects/Email.ts";
 import { Password } from "../../../../src/Users/domain/valueObjects/Password.ts";
@@ -99,6 +100,27 @@ describe("Create user useCase", () => {
   it("Should create a valid address", () => {
     const address = "Calle sin nombre 123";
     expect(address).toBe("Calle sin nombre 123");
+  });
+
+  it("Should throw an error when given an empty city", () => {
+    expect(() => City.create("")).toThrow(throwError("La ciudad es obligatoria.", 403));
+  });
+
+  it("Should trhow an error when given a city with incorrect length", () => {
+    const cityLength1 = "A";
+    const cityLength101 = "Rincón de la Montaña Misteriosa entre Bosques Encantados y Prados Verdes bajo el Sol Radiante y el Cielo Azul Eterno";
+    expect(() => City.create(cityLength1)).toThrow(throwError("El nombre de la ciudad debe tener entre 2 y 100 caracteres", 403));
+    expect(() => City.create(cityLength101)).toThrow(throwError("El nombre de la ciudad debe tener entre 2 y 100 caracteres", 403));
+  });
+
+  it("Should throw an error when given a city with incorrwct format", () => {
+    const city = "33A";
+    expect(() => City.create(city)).toThrow(throwError("El nombre de la ciudad solo puede contener letras y espacios.", 403));
+  });
+
+  it("Should create a valid city", () => {
+    const city = "Pontevedra";
+    expect(city).toBe("Pontevedra");
   });
 
   it("Should throw an error when given an empty postalCode", () => {
