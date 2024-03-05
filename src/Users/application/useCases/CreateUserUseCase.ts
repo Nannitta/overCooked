@@ -3,6 +3,7 @@ import { User } from "../../domain/entities/User.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import { Address } from "../../domain/valueObjects/Address.ts";
 import { Cif } from "../../domain/valueObjects/Cif.ts";
+import { City } from "../../domain/valueObjects/City.ts";
 import { CompanyName } from "../../domain/valueObjects/CompanyName.ts";
 import { Email } from "../../domain/valueObjects/Email.ts";
 import { Password } from "../../domain/valueObjects/Password.ts";
@@ -35,6 +36,7 @@ export class CreateUserUseCase {
     const passwordPersistence = Password.create(password);
     const phonePersistence = Phone.create(phone);
     const addressPersistence = Address.create(address);
+    const cityPersistence = City.create(city);
     const postalCodePersistence = PostalCode.create(postalCode);
     const idUser = await this.userRepository.getUserIdByCif(cifPersistence);
 
@@ -47,7 +49,7 @@ export class CreateUserUseCase {
       passwordPersistence,
       phonePersistence,
       addressPersistence,
-      city,
+      cityPersistence,
       country,
       province,
       postalCodePersistence,
