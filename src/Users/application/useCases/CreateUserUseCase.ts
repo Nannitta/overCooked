@@ -7,6 +7,7 @@ import { CompanyName } from "../../domain/valueObjects/CompanyName.ts";
 import { Email } from "../../domain/valueObjects/Email.ts";
 import { Password } from "../../domain/valueObjects/Password.ts";
 import { Phone } from "../../domain/valueObjects/Phone.ts";
+import { PostalCode } from "../../domain/valueObjects/PostalCode.ts";
 
 export class CreateUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
@@ -34,6 +35,7 @@ export class CreateUserUseCase {
     const passwordPersistence = Password.create(password);
     const phonePersistence = Phone.create(phone);
     const addressPersistence = Address.create(address);
+    const postalCodePersistence = PostalCode.create(postalCode);
     const idUser = await this.userRepository.getUserIdByCif(cifPersistence);
 
     if(idUser) throw throwError("El CIF indicado ya está en uso", 403);
@@ -48,7 +50,7 @@ export class CreateUserUseCase {
       city,
       country,
       province,
-      postalCode,
+      postalCodePersistence,
       web,
       role,
       createdAt,

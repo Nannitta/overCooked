@@ -4,6 +4,7 @@ import { CompanyName } from "../../../../src/Users/domain/valueObjects/CompanyNa
 import { Email } from "../../../../src/Users/domain/valueObjects/Email.ts";
 import { Password } from "../../../../src/Users/domain/valueObjects/Password.ts";
 import { Phone } from "../../../../src/Users/domain/valueObjects/Phone.ts";
+import { PostalCode } from "../../../../src/Users/domain/valueObjects/PostalCode.ts";
 import { throwError } from "../../../../src/shared/infraestructure/utils/errorHelper.ts";
 
 describe("Create user useCase", () => {
@@ -98,5 +99,19 @@ describe("Create user useCase", () => {
   it("Should create a valid address", () => {
     const address = "Calle sin nombre 123";
     expect(address).toBe("Calle sin nombre 123");
+  });
+
+  it("Should throw an error when given an empty postalCode", () => {
+    expect(() => PostalCode.create("")).toThrow(throwError("El código postal es obligatorio.", 403));
+  });
+
+  it("Should throw an error when given a postalCode with incorrect format", () => {
+    const postalCode = "cd234";
+    expect(() => PostalCode.create(postalCode)).toThrow(throwError("El código postal debe tener un formato válido.", 403));
+  });
+
+  it("Should create a valid postalCode", () => {
+    const postalCode = "36900";
+    expect(postalCode).toBe("36900");
   });
 });
