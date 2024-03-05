@@ -19,11 +19,6 @@
     'any.required': 'La provincia es obligatoria.',
     'string.pattern.base': 'El nombre de la provincia solo puede tener letras y espacios.'
   }),
-  postalCode: Joi.string().required().pattern(/^\d{4,10}$/).messages({
-    'string.empty': 'El código postal no puede estar vacío',
-    'string.pattern.base': 'El código postal debe tener 5 números.',
-    'any.required': 'El código postal es obligatorio.'
-  }),
   web: Joi.alternatives().try(Joi.string().empty(''), Joi.string().uri().messages({
     'string.domain': 'La url de la web debe ser un dominio válido.'
   }))

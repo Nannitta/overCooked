@@ -4,6 +4,7 @@ import type { CompanyName } from "../valueObjects/CompanyName.ts";
 import type { Email } from "../valueObjects/Email.ts";
 import type { Password } from "../valueObjects/Password.ts";
 import type { Phone } from "../valueObjects/Phone.ts";
+import type { PostalCode } from "../valueObjects/PostalCode.ts";
 
 export class User {
   private constructor(
@@ -34,7 +35,7 @@ export class User {
     city: string,
     country: string,
     province: string,
-    postalCode: string,
+    postalCode: PostalCode,
     web?: string,
     role?: string,
     createdAt?: Date,
@@ -51,7 +52,7 @@ export class User {
       city,
       country,
       province,
-      postalCode,
+      postalCode.getPostalCode(),
       web,
       role,
       createdAt,
