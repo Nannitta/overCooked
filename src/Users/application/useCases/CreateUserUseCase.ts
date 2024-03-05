@@ -9,6 +9,7 @@ import { Email } from "../../domain/valueObjects/Email.ts";
 import { Password } from "../../domain/valueObjects/Password.ts";
 import { Phone } from "../../domain/valueObjects/Phone.ts";
 import { PostalCode } from "../../domain/valueObjects/PostalCode.ts";
+import { Province } from "../../domain/valueObjects/Province.ts";
 import { Web } from "../../domain/valueObjects/Web.ts";
 
 export class CreateUserUseCase {
@@ -38,6 +39,7 @@ export class CreateUserUseCase {
     const phonePersistence = Phone.create(phone);
     const addressPersistence = Address.create(address);
     const cityPersistence = City.create(city);
+    const provincePersistence = Province.create(province);
     const postalCodePersistence = PostalCode.create(postalCode);
     const webPersistence = Web.create(web);
     const idUser = await this.userRepository.getUserIdByCif(cifPersistence);
@@ -53,7 +55,7 @@ export class CreateUserUseCase {
       addressPersistence,
       cityPersistence,
       country,
-      province,
+      provincePersistence,
       postalCodePersistence,
       webPersistence,
       role,

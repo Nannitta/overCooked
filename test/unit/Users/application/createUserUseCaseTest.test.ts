@@ -6,6 +6,7 @@ import { Email } from "../../../../src/Users/domain/valueObjects/Email.ts";
 import { Password } from "../../../../src/Users/domain/valueObjects/Password.ts";
 import { Phone } from "../../../../src/Users/domain/valueObjects/Phone.ts";
 import { PostalCode } from "../../../../src/Users/domain/valueObjects/PostalCode.ts";
+import { Province } from "../../../../src/Users/domain/valueObjects/Province.ts";
 import { Web } from "../../../../src/Users/domain/valueObjects/Web.ts";
 import { throwError } from "../../../../src/shared/infraestructure/utils/errorHelper.ts";
 
@@ -114,7 +115,7 @@ describe("Create user useCase", () => {
     expect(() => City.create(cityLength101)).toThrow(throwError("El nombre de la ciudad debe tener entre 2 y 100 caracteres", 403));
   });
 
-  it("Should throw an error when given a city with incorrwct format", () => {
+  it("Should throw an error when given a city with incorrect format", () => {
     const city = "33A";
     expect(() => City.create(city)).toThrow(throwError("El nombre de la ciudad solo puede contener letras y espacios.", 403));
   });
@@ -122,6 +123,20 @@ describe("Create user useCase", () => {
   it("Should create a valid city", () => {
     const city = "Pontevedra";
     expect(city).toBe("Pontevedra");
+  });
+
+  it("Should throw an error when given an empty province", () => {
+    expect(() => Province.create("")).toThrow(throwError("La provincia es obligatoria.", 403));
+  });
+
+  it("Should throw an error when given a province with incorrect length", () => {
+    const province = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae augue ac purus gravida dapibus. Aliquam erat volutpat.";
+    expect(() => Province.create(province)).toThrow(throwError("La provincia no puede tener más de 100 caracteres.", 403));
+  });
+
+  it("Should create a valid province", () => {
+    const province = "Lugo";
+    expect(province).toBe("Lugo");
   });
 
   it("Should throw an error when given an empty postalCode", () => {
