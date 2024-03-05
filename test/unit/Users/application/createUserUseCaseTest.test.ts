@@ -6,6 +6,7 @@ import { Email } from "../../../../src/Users/domain/valueObjects/Email.ts";
 import { Password } from "../../../../src/Users/domain/valueObjects/Password.ts";
 import { Phone } from "../../../../src/Users/domain/valueObjects/Phone.ts";
 import { PostalCode } from "../../../../src/Users/domain/valueObjects/PostalCode.ts";
+import { Web } from "../../../../src/Users/domain/valueObjects/Web.ts";
 import { throwError } from "../../../../src/shared/infraestructure/utils/errorHelper.ts";
 
 describe("Create user useCase", () => {
@@ -135,5 +136,15 @@ describe("Create user useCase", () => {
   it("Should create a valid postalCode", () => {
     const postalCode = "36900";
     expect(postalCode).toBe("36900");
+  });
+
+  it("Should throw an error when given an invalid domain", () => {
+    const web = "abc.x";
+    expect(() => Web.create(web)).toThrow((throwError("La url de la web debe ser un dominio válido.", 403)));
+  });
+
+  it("Should create a valid domain", () => {
+    const web = "https://www.ejemplo.com";
+    expect(web).toBe("https://www.ejemplo.com");
   });
 });
