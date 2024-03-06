@@ -2,6 +2,7 @@ import type { Address } from "../valueObjects/Address.ts";
 import type { Cif } from "../valueObjects/Cif.ts";
 import type { City } from "../valueObjects/City.ts";
 import type { CompanyName } from "../valueObjects/CompanyName.ts";
+import type { Country } from "../valueObjects/Country.ts";
 import type { Email } from "../valueObjects/Email.ts";
 import type { Password } from "../valueObjects/Password.ts";
 import type { Phone } from "../valueObjects/Phone.ts";
@@ -37,7 +38,7 @@ export class User {
     phone: Phone,
     address: Address,
     city: City,
-    country: string,
+    country: Country,
     province: Province,
     postalCode: PostalCode,
     web: Web | null,
@@ -54,7 +55,7 @@ export class User {
       phone.getPhone(),
       address.getAddress(),
       city.getCity(),
-      country,
+      country.getCountry(),
       province.getProvince(),
       postalCode.getPostalCode(),
       role.getRole(),
