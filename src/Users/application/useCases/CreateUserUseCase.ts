@@ -5,6 +5,7 @@ import { Address } from "../../domain/valueObjects/Address.ts";
 import { Cif } from "../../domain/valueObjects/Cif.ts";
 import { City } from "../../domain/valueObjects/City.ts";
 import { CompanyName } from "../../domain/valueObjects/CompanyName.ts";
+import { Country } from "../../domain/valueObjects/Country.ts";
 import { Email } from "../../domain/valueObjects/Email.ts";
 import { Password } from "../../domain/valueObjects/Password.ts";
 import { Phone } from "../../domain/valueObjects/Phone.ts";
@@ -40,6 +41,7 @@ export class CreateUserUseCase {
     const phonePersistence = Phone.create(phone);
     const addressPersistence = Address.create(address);
     const cityPersistence = City.create(city);
+    const countryPersistence = Country.create(country);
     const provincePersistence = Province.create(province);
     const postalCodePersistence = PostalCode.create(postalCode);
     const webPersistence = Web.create(web);
@@ -56,7 +58,7 @@ export class CreateUserUseCase {
       phonePersistence,
       addressPersistence,
       cityPersistence,
-      country,
+      countryPersistence,
       provincePersistence,
       postalCodePersistence,
       webPersistence,

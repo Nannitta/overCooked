@@ -2,6 +2,7 @@ import { Address } from "../../../../src/Users/domain/valueObjects/Address.ts";
 import { Cif } from "../../../../src/Users/domain/valueObjects/Cif.ts";
 import { City } from "../../../../src/Users/domain/valueObjects/City.ts";
 import { CompanyName } from "../../../../src/Users/domain/valueObjects/CompanyName.ts";
+import { Country } from "../../../../src/Users/domain/valueObjects/Country.ts";
 import { Email } from "../../../../src/Users/domain/valueObjects/Email.ts";
 import { Password } from "../../../../src/Users/domain/valueObjects/Password.ts";
 import { Phone } from "../../../../src/Users/domain/valueObjects/Phone.ts";
@@ -126,6 +127,20 @@ describe("Create user useCase", () => {
     expect(city).toBe("Pontevedra");
   });
 
+  it("Should throw an error when given an empty country", () => {
+    expect(() => Country.create("")).toThrow(throwError("El país es obligatorio.", 403));
+  });
+
+  it("Should throw an error when given a country with incorrect format", () => {
+    const country = "12Esp";
+    expect(() => Country.create(country)).toThrow(throwError("El nombre del país solo puede contener letras y espacios.", 403));
+  });
+
+  it("Should create a valid country", () => {
+    const country = Country.create("España").getCountry();
+    expect(country).toBe("España");
+  });
+
   it("Should throw an error when given an empty province", () => {
     expect(() => Province.create("")).toThrow(throwError("La provincia es obligatoria.", 403));
   });
@@ -133,6 +148,11 @@ describe("Create user useCase", () => {
   it("Should throw an error when given a province with incorrect length", () => {
     const province = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae augue ac purus gravida dapibus. Aliquam erat volutpat.";
     expect(() => Province.create(province)).toThrow(throwError("La provincia no puede tener más de 100 caracteres.", 403));
+  });
+
+  it("Should throw an error when given a province with incorrect format", () => {
+    const province = "12Pontevedra";
+    expect(() => Province.create(province)).toThrow(throwError("El nombre de la provincia solo puede tener letras y espacios.", 403));
   });
 
   it("Should create a valid province", () => {
