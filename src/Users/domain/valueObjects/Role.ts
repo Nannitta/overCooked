@@ -1,4 +1,5 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
+import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { RoleIncorrectException } from "../exceptions/RoleIncorrectException.ts";
 
 enum RolInterface {
   restaurant = "Restaurante",
@@ -14,10 +15,10 @@ export class Role {
 
   public static create(rol: string): Role {
     if(!rol) {
-      throw throwError("Debe seleccionar un rol", 403);
+      throw new MandatoryFieldException("rol");
     }
     if(rol !== RolInterface.restaurant && rol !== RolInterface.supplier) {
-      throw throwError("El rol debe ser Restaurante o Proveedor", 403);
+      throw new RoleIncorrectException();
     }
     return new Role(rol);
   }

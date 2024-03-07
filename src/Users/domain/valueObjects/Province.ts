@@ -1,4 +1,6 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
+import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { ProvinceFormatException } from "../exceptions/ProvinceFormatExceptions.ts";
+import { ProvinceLengthException } from "../exceptions/ProvinceLengthException.ts";
 
 export class Province {
   public readonly province: string;
@@ -11,13 +13,13 @@ export class Province {
     const PROVINCE_PATTERN = /^[A-Za-zñÑ\sáéíóúÁÉÍÓÚüÜ]+$/u;
 
     if(!province) {
-      throw throwError("La provincia es obligatoria.", 403);
+      throw new MandatoryFieldException("provincia");
     }
     if(province.length > 100) {
-      throw throwError("La provincia no puede tener más de 100 caracteres.", 403);
+      throw new ProvinceLengthException();
     }
     if(!PROVINCE_PATTERN.test(province)) {
-      throw throwError("El nombre de la provincia solo puede tener letras y espacios.", 403);
+      throw new ProvinceFormatException();
     }
     return new Province(province);
   }

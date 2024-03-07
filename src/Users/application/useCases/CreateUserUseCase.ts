@@ -1,5 +1,5 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
 import { User } from "../../domain/entities/User.ts";
+import { CifAlreadyExistsException } from "../../domain/exceptions/CifAlreadyExistsException.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import { Address } from "../../domain/valueObjects/Address.ts";
 import { Cif } from "../../domain/valueObjects/Cif.ts";
@@ -48,7 +48,7 @@ export class CreateUserUseCase {
     const rolePersistence = Role.create(role);
     const idUser = await this.userRepository.getUserIdByCif(cifPersistence);
 
-    if(idUser) throw throwError("El CIF indicado ya está en uso", 403);
+    if(idUser) throw new CifAlreadyExistsException();
 
     const user = User.create(
       companyNamePersistence,

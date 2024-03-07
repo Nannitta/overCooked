@@ -1,24 +1,19 @@
 import express from "express";
 import "dotenv/config";
-import type { Request, Response } from "express";
-import type { CustomError } from "./src/shared/infraestructure/utils/errorHelper.ts";
+import type { Application, NextFunction, Request, Response } from "express";
 import { userRouter } from "./src/shared/infraestructure/restApi/userRouter.ts";
+import { exceptionHandler } from "./src/shared/aplicación/middlewares/exceptionHandler.ts";
 
 const { PORT } = process.env;
 
-export const app = express();
+export const app: Application = express();
 app.use(express.json());
 
 app.use("/user", userRouter);
 
-app.use((err: CustomError, _: Request, res: Response) => {
-  console.error(err);
-
-  const errorCode: number = err.statusCode ?? 500;
-
-  res.status(errorCode).send({
-    error: err.message,
-  });
+app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
+  exceptionHandler(err, res);
+  next();
 });
 
 app.use((_: Request, res: Response) => {
