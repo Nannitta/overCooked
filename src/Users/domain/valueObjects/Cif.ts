@@ -1,4 +1,5 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
+import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { CifFormatException } from "../exceptions/CifFormatException.ts";
 
 export class Cif {
   public readonly cif: string;
@@ -11,10 +12,10 @@ export class Cif {
     const CIF_PATTERN = /^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/;
 
     if(!cif) {
-      throw throwError("El CIF de la empresa es obligatorio.", 403);
+      throw new MandatoryFieldException("CIF");
     }
     if(!CIF_PATTERN.test(cif)) {
-      throw throwError("El CIF debe tener un formato válido.", 403);
+      throw new CifFormatException();
     }
     return new Cif(cif);
   }

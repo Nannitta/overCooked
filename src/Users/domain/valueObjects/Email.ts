@@ -1,4 +1,6 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
+import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { EmailFormatException } from "../exceptions/EmailFormatException.ts";
+import { EmailLengthException } from "../exceptions/EmailLengthException.ts";
 
 export class Email {
   public readonly email: string;
@@ -11,13 +13,13 @@ export class Email {
     const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if(!email) {
-      throw throwError("El email es obligatorio.", 403);
+      throw new MandatoryFieldException("email");
     }
     if(email.length > 100) {
-      throw throwError("El email no puede tener más de 100 caracteres.", 403);
+      throw new EmailLengthException();
     }
     if(!EMAIL_PATTERN.test(email)) {
-      throw throwError("El email debe tener un formato válido.", 403);
+      throw new EmailFormatException();
     }
     return new Email(email);
   }

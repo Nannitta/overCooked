@@ -1,4 +1,5 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
+import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { PostalCodeFormatException } from "../exceptions/PostalCodeFormatException.ts";
 
 export class PostalCode {
   public readonly postalCode: string;
@@ -11,10 +12,10 @@ export class PostalCode {
     const POSTALCODE_PATTERN = /^\d{4,10}$/;
 
     if(!postalCode) {
-      throw throwError("El código postal es obligatorio.", 403);
+      throw new MandatoryFieldException("código postal");
     }
     if(!POSTALCODE_PATTERN.test(postalCode)) {
-      throw throwError("El código postal debe tener un formato válido.", 403);
+      throw new PostalCodeFormatException();
     }
     return new PostalCode(postalCode);
   }

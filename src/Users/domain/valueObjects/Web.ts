@@ -1,4 +1,4 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
+import { DomainFormatException } from "../exceptions/DomainFormatException.ts";
 
 export class Web {
   public readonly web: string;
@@ -12,7 +12,7 @@ export class Web {
 
     if(web) {
       if(!WEB_PATTERN.test(web)) {
-        throw throwError("La url de la web debe ser un dominio válido.", 403);
+        throw new DomainFormatException();
       }
       return new Web(web);
     }

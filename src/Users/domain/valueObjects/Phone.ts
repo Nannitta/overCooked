@@ -1,4 +1,5 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
+import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { PhoneFormatException } from "../exceptions/PhoneFormatException.ts";
 
 export class Phone {
   public readonly phone: string;
@@ -11,10 +12,10 @@ export class Phone {
     const PHONE_PATTERN = /^(\+?(\d{1,3}))?[-. ]?((\(\d{1,3}\))|\d{1,4})[-. ]?(\d{9,})$/;
 
     if(!phone) {
-      throw throwError("El número de teléfono es obligatorio.", 403);
+      throw new MandatoryFieldException("teléfono");
     }
     if(!PHONE_PATTERN.test(phone)) {
-      throw throwError("El número de teléfono deber tener un formato válido.", 403);
+      throw new PhoneFormatException();
     }
     return new Phone(phone);
   };

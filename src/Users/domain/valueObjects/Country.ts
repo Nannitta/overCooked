@@ -1,4 +1,5 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
+import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { CountryFormatException } from "../exceptions/CountryFormatException.ts";
 
 export class Country {
   public readonly country: string;
@@ -11,10 +12,10 @@ export class Country {
     const COUNTRY_PATTERN = /^[A-Za-zñÑ\sáéíóúÁÉÍÓÚüÜ]+$/u;
 
     if(!country) {
-      throw throwError("El país es obligatorio.", 403);
+      throw new MandatoryFieldException("país");
     }
     if(!COUNTRY_PATTERN.test(country)) {
-      throw throwError("El nombre del país solo puede contener letras y espacios.", 403);
+      throw new CountryFormatException();
     }
     return new Country(country);
   }

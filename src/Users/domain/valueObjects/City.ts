@@ -1,4 +1,6 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
+import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { CityFormatException } from "../exceptions/CityFormatException.ts";
+import { CityLengthException } from "../exceptions/CityLengthException.ts";
 
 export class City {
   public readonly city: string;
@@ -11,13 +13,13 @@ export class City {
     const CITY_PATTERN = /^[A-Za-zñÑ\sáéíóúÁÉÍÓÚüÜ]+$/u;
 
     if(!city) {
-      throw throwError("La ciudad es obligatoria.", 403);
+      throw new MandatoryFieldException("ciudad");
     }
     if(city.length < 2 || city.length > 100) {
-      throw throwError("El nombre de la ciudad debe tener entre 2 y 100 caracteres", 403);
+      throw new CityLengthException();
     }
     if(!CITY_PATTERN.test(city)) {
-      throw throwError("El nombre de la ciudad solo puede contener letras y espacios.", 403);
+      throw new CityFormatException();
     }
     return new City(city);
   }

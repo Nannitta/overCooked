@@ -1,4 +1,5 @@
-import { throwError } from "../../../shared/infraestructure/utils/errorHelper.ts";
+import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { AddressLengthException } from "../exceptions/AddressLengthException.ts";
 
 export class Address {
   public readonly address: string;
@@ -9,10 +10,10 @@ export class Address {
 
   public static create(address: string): Address {
     if(!address) {
-      throw throwError("La dirección de la empresa es obligatoria.", 403);
+      throw new MandatoryFieldException("dirección");
     }
     if(address.length < 2 || address.length > 250) {
-      throw throwError("La dirección de la empresa debe tener entre 2 y 250 caracteres.", 403);
+      throw new AddressLengthException();
     }
     return new Address(address);
   };
