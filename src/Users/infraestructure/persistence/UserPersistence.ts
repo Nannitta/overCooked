@@ -36,7 +36,7 @@ export class UserPersistence implements UserRepository {
     );
   }
 
-  async getUserIdByCif (cif: Cif): Promise<string | null> {
+  async getUserIdByCif (cif: Cif): Promise<User | null> {
     const pool = getPool();
 
     const [result] = await pool.query(
@@ -48,8 +48,8 @@ export class UserPersistence implements UserRepository {
       return null;
     }
 
-    const userIdByCif = result[0]?.userId;
+    const user = result[0];
 
-    return userIdByCif;
+    return user;
   }
 }

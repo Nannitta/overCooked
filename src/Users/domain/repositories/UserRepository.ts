@@ -3,5 +3,5 @@ import type { Cif } from "../valueObjects/Cif.ts";
 
 export interface UserRepository {
   postUser: (user: User) => Promise<void>
-  getUserIdByCif: (cif: Cif) => Promise<string | null>
+  getUserByCif: (cif: Cif) => Promise<User | null>
 }

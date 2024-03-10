@@ -27,7 +27,7 @@ import { Role } from "../../../../../src/Users/domain/valueObjects/Role.ts";
 import { Web } from "../../../../../src/Users/domain/valueObjects/Web.ts";
 import { MandatoryFieldException } from "../../../../../src/shared/domain/exceptions/MandatoryFieldException.ts";
 
-describe("", () => {
+describe("Unit test to user valueObjects", () => {
   const exampleUser = {
     companyName: "Ejemplo",
     cif: "A1234567A",
@@ -39,8 +39,8 @@ describe("", () => {
     country: "España",
     province: "Ejemplo",
     postalCode: "12345",
-    role: "Restaurante",
-    web: "https://www.ejemplo.com"
+    web: "https://www.ejemplo.com",
+    role: "Restaurante"
   };
 
   it("Should throw an error when given an empty companyName", () => {

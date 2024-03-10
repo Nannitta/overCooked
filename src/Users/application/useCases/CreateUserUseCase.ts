@@ -46,9 +46,10 @@ export class CreateUserUseCase {
     const postalCodePersistence = PostalCode.create(postalCode);
     const webPersistence = Web.create(web);
     const rolePersistence = Role.create(role);
-    const idUser = await this.userRepository.getUserIdByCif(cifPersistence);
 
-    if(idUser) throw new CifAlreadyExistsException();
+    const checkUser = await this.userRepository.getUserByCif(cifPersistence);
+
+    if(checkUser) throw new CifAlreadyExistsException();
 
     const user = User.create(
       companyNamePersistence,
