@@ -4,12 +4,13 @@ import type { UserRepository } from "../../domain/repositories/UserRepository.ts
 import bcrypt from "bcrypt";
 import { generateUUID } from "../../../shared/infraestructure/utils/generateUUID.ts";
 import type { Cif } from "../../domain/valueObjects/Cif.ts";
+import type { UUID } from "node:crypto";
 
 export class UserPersistence implements UserRepository {
   async postUser (user: User): Promise<void> {
     const pool = getPool();
 
-    const userId: string = generateUUID();
+    const userId: UUID = generateUUID();
     const activationCode: string = generateUUID();
 
     const hashedPassword: string = await bcrypt.hash(user.password, 10);
@@ -36,7 +37,7 @@ export class UserPersistence implements UserRepository {
     );
   }
 
-  async getUserIdByCif (cif: Cif): Promise<User | null> {
+  async getUserByCif (cif: Cif): Promise<User | null> {
     const pool = getPool();
 
     const [result] = await pool.query(

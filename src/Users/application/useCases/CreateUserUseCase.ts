@@ -13,6 +13,7 @@ import { PostalCode } from "../../domain/valueObjects/PostalCode.ts";
 import { Province } from "../../domain/valueObjects/Province.ts";
 import { Role } from "../../domain/valueObjects/Role.ts";
 import { Web } from "../../domain/valueObjects/Web.ts";
+import type { UUID } from "node:crypto";
 
 export class CreateUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
@@ -32,7 +33,7 @@ export class CreateUserUseCase {
     web?: string,
     createdAt?: Date,
     modifiedAt?: Date,
-    userId?: string
+    userId?: UUID
   ): Promise<void> => {
     const companyNamePersistence = CompanyName.create(companyName);
     const cifPersistence = Cif.create(CIF);
