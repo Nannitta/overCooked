@@ -1,13 +1,13 @@
 import { DomainFormatException } from "../exceptions/DomainFormatException.ts";
 
 export class Web {
-  public readonly web: string;
+  public readonly web: string | null;
 
-  private constructor(web: string) {
+  private constructor(web: string | null) {
     this.web = web;
   }
 
-  public static create(web: string | undefined): Web | null {
+  public static create(web: string | null): Web | null {
     const WEB_PATTERN = /^https:\/\/www\.[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
 
     if(web) {

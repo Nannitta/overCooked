@@ -2,6 +2,7 @@ import { CreateUserUseCase } from "../../../../src/Users/application/useCases/Cr
 import type { User } from "../../../../src/Users/domain/entities/User.ts";
 import { CifAlreadyExistsException } from "../../../../src/Users/domain/exceptions/CifAlreadyExistsException.ts";
 import { Cif } from "../../../../src/Users/domain/valueObjects/Cif.ts";
+import { UserMother } from "../domain/mothers/userMother.ts";
 import { UserRepositoryInMemory } from "../infraestructure/persistence/UserRepositoryInMemory.ts";
 
 describe("Unit test to create user useCase", () => {
@@ -14,52 +15,26 @@ describe("Unit test to create user useCase", () => {
   });
 
   it("Should throw an error when given an user's cif already exists", async () => {
-    const exampleUser1 = {
-      companyName: "Ejemplo 1",
-      cif: "A1234567A",
-      email: "ejemplo1@gmail.com",
-      password: "ABCabc123!",
-      phone: "+34-695782146",
-      address: "Calle ejemplo, 123",
-      city: "Ejemplo",
-      country: "España",
-      province: "Ejemplo",
-      postalCode: "12345",
-      web: "https://www.ejemplo1.com",
-      role: "Restaurante"
-    };
-
     try {
-      await userRepositoryInMemory.postUser(exampleUser1);
+      const user = new UserMother().random();
 
-      await createUserUseCase.execute(exampleUser1.companyName, exampleUser1.cif, exampleUser1.email, exampleUser1.password, exampleUser1.phone,
-        exampleUser1.address, exampleUser1.city, exampleUser1.country, exampleUser1.province, exampleUser1.postalCode, exampleUser1.role, exampleUser1.web);
+      await userRepositoryInMemory.postUser(user);
+
+      await createUserUseCase.execute(user.companyName, user.cif, user.email, user.password, user.phone,
+        user.address, user.city, user.country, user.province, user.postalCode, user.role, user.web);
     } catch (error) {
       expect(error).toBeInstanceOf(CifAlreadyExistsException);
     }
   });
 
   it("Should create an user", async () => {
-    const exampleUser1 = {
-      companyName: "Ejemplo 1",
-      cif: "A1234567A",
-      email: "ejemplo1@gmail.com",
-      password: "ABCabc123!",
-      phone: "+34-695782146",
-      address: "Calle ejemplo, 123",
-      city: "Ejemplo",
-      country: "España",
-      province: "Ejemplo",
-      postalCode: "12345",
-      web: "https://www.ejemplo1.com",
-      role: "Restaurante"
-    };
+    const userRandom = new UserMother().random();
 
-    await createUserUseCase.execute(exampleUser1.companyName, exampleUser1.cif, exampleUser1.email, exampleUser1.password, exampleUser1.phone,
-      exampleUser1.address, exampleUser1.city, exampleUser1.country, exampleUser1.province, exampleUser1.postalCode, exampleUser1.role, exampleUser1.web);
+    await createUserUseCase.execute(userRandom.companyName, userRandom.cif, userRandom.email, userRandom.password, userRandom.phone,
+      userRandom.address, userRandom.city, userRandom.country, userRandom.province, userRandom.postalCode, userRandom.role, userRandom.web);
 
-    const user: User | null = await userRepositoryInMemory.getUserByCif(Cif.create(exampleUser1.cif));
+    const user: User | null = await userRepositoryInMemory.getUserByCif(Cif.create(userRandom.cif));
 
-    expect(user?.cif).toEqual(exampleUser1.cif);
+    expect(user?.cif).toEqual(userRandom.cif);
   });
 });

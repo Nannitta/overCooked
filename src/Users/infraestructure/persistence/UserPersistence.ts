@@ -11,7 +11,7 @@ export class UserPersistence implements UserRepository {
     const pool = getPool();
 
     const userId: UUID = generateUUID();
-    const activationCode: string = generateUUID();
+    const activationCode: UUID = generateUUID();
 
     const hashedPassword: string = await bcrypt.hash(user.password, 10);
 

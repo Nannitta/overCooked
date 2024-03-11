@@ -11,6 +11,8 @@ const mapErrorCodeToHTTPCode = (error: BaseException): number => {
       return HTTP_STATUS.BAD_REQUEST;
     case EXCEPTION_CODES.CIF_FORMAT:
       return HTTP_STATUS.BAD_REQUEST;
+    case EXCEPTION_CODES.CIF_ALREADY_EXISTS:
+      return HTTP_STATUS.BAD_REQUEST;
     case EXCEPTION_CODES.EMAIL_LENGTH:
       return HTTP_STATUS.BAD_REQUEST;
     case EXCEPTION_CODES.EMAIL_FORMAT:
@@ -38,7 +40,6 @@ const mapErrorCodeToHTTPCode = (error: BaseException): number => {
     case EXCEPTION_CODES.ROLE_INCORRECT:
       return HTTP_STATUS.BAD_REQUEST;
   }
-  return HTTP_STATUS.SERVER_ERROR;
 };
 
 export const exceptionHandler = (error: Error, res: Response): void => {

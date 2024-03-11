@@ -73,7 +73,7 @@ const createDB = async (): Promise<void> => {
           ON UPDATE CASCADE
               ON DELETE RESTRICT,
         supplierId VARCHAR(50) NOT NULL,
-        FOREIGN KEY (supplierId) REFERENCES suppliers (supplierId)
+        FOREIGN KEY (supplierId) REFERENCES internal_suppliers (supplierId)
           ON UPDATE CASCADE
               ON DELETE RESTRICT,
         createdAt DATETIME DEFAULT NOW() NOT NULL,
@@ -103,7 +103,7 @@ const createDB = async (): Promise<void> => {
           ON UPDATE CASCADE
             ON DELETE RESTRICT,
         supplierId VARCHAR(50) NOT NULL,
-        FOREIGN KEY (supplierId) REFERENCES suppliers (supplierId)
+        FOREIGN KEY (supplierId) REFERENCES internal_suppliers (supplierId)
           ON UPDATE CASCADE
             ON DELETE RESTRICT,
         price DECIMAL(5,2) NOT NULL,
