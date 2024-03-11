@@ -1,3 +1,4 @@
+import type { UUID } from "node:crypto";
 import type { Address } from "../valueObjects/Address.ts";
 import type { Cif } from "../valueObjects/Cif.ts";
 import type { City } from "../valueObjects/City.ts";
@@ -27,7 +28,7 @@ export class User {
     public readonly web?: string | null,
     public readonly createdAt?: Date,
     public readonly modifiedAt?: Date,
-    public readonly userId?: string
+    public readonly userId?: UUID
   ) {}
 
   public static create(
@@ -45,7 +46,7 @@ export class User {
     role: Role,
     createdAt?: Date,
     modifiedAt?: Date,
-    userId?: string
+    userId?: UUID
   ): User {
     return new User(
       companyName.getCompanyName(),
