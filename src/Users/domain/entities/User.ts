@@ -25,7 +25,7 @@ export class User {
     public readonly province: string,
     public readonly postalCode: string,
     public readonly role: string,
-    public readonly web?: string | null,
+    public readonly web: string | null,
     public readonly createdAt?: Date,
     public readonly modifiedAt?: Date,
     public readonly userId?: UUID
@@ -60,7 +60,7 @@ export class User {
       province.getProvince(),
       postalCode.getPostalCode(),
       role.getRole(),
-      web?.getWeb(),
+      web ? web.getWeb() : null,
       createdAt,
       modifiedAt,
       userId

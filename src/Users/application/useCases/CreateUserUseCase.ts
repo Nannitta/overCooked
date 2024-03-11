@@ -30,7 +30,7 @@ export class CreateUserUseCase {
     province: string,
     postalCode: string,
     role: string,
-    web?: string,
+    web: string | null,
     createdAt?: Date,
     modifiedAt?: Date,
     userId?: UUID

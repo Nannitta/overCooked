@@ -22,7 +22,7 @@ export class PostUserController {
         req.body.province as string,
         req.body.postalCode as string,
         req.body.role as string,
-        (req.body.web ?? undefined) as string || undefined
+        (req.body.web ?? null) as string || null
       );
       res.status(200).send({
         status: "Ok",

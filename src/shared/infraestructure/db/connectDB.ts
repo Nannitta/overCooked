@@ -25,3 +25,7 @@ export const getPool = (): mysql.Pool => {
   pool = mysql.createPool(dbConfig);
   return pool;
 };
+
+export const closePool = async (pool: mysql.Pool): Promise<void> => {
+  await pool.end();
+};
