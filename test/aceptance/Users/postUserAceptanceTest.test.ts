@@ -1,34 +1,16 @@
 import request from "supertest";
 import { app } from "../../../server.ts";
-import { getPool, closePool } from "../../../src/shared/infraestructure/db/connectDB.ts";
-import type mysql from "mysql2/promise";
+import { UserPersistence } from "../../../src/Users/infraestructure/persistence/UserPersistence.ts";
+import { UserMother } from "../../unit/Users/domain/mothers/userMother.ts";
 
-let pool: mysql.Pool;
+jest.mock("../../../src/Users/infraestructure/persistence/UserPersistence.ts");
 
-beforeAll(async () => {
-  pool = getPool();
-});
-
-afterAll(async () => {
-  await closePool(pool);
-});
+const mockedUserPersistence = UserPersistence as jest.MockedClass<typeof UserPersistence>;
 
 describe("Aceptance test for post user", () => {
   it("As user I want to register a user in the application", async () => {
-    const user = {
-      companyName: "Ejemplo 1",
-      CIF: "A1234567A",
-      email: "ejemplo1@gmail.com",
-      password: "ABCabc123!",
-      phone: "+34-695782146",
-      address: "Calle ejemplo, 123",
-      city: "Ejemplo",
-      country: "España",
-      province: "Ejemplo",
-      postalCode: "12345",
-      web: "https://www.ejemplo1.com",
-      role: "Restaurante"
-    };
+    const user = new UserMother().random();
+    const mockedPostUser = mockedUserPersistence.prototype.postUser.mockResolvedValue();
 
     const response = await request(app)
       .post("/user/register")
@@ -40,5 +22,7 @@ describe("Aceptance test for post user", () => {
       status: "Ok",
       message: "Usuario creado correctamente"
     });
+
+    expect(mockedPostUser).toHaveBeenCalledWith(user);
   });
 });

@@ -15,7 +15,7 @@ import type { Web } from "../valueObjects/Web.ts";
 export class User {
   private constructor(
     public readonly companyName: string,
-    public readonly cif: string,
+    public readonly CIF: string,
     public readonly email: string,
     public readonly password: string,
     public readonly phone: string,
@@ -33,7 +33,7 @@ export class User {
 
   public static create(
     companyName: CompanyName,
-    cif: Cif,
+    CIF: Cif,
     email: Email,
     password: Password,
     phone: Phone,
@@ -50,7 +50,7 @@ export class User {
   ): User {
     return new User(
       companyName.getCompanyName(),
-      cif.getCif(),
+      CIF.getCif(),
       email.getEmail(),
       password.getPassword(),
       phone.getPhone(),

@@ -2,25 +2,25 @@ import { MandatoryFieldException } from "../../../shared/domain/exceptions/Manda
 import { CifFormatException } from "../exceptions/CifFormatException.ts";
 
 export class Cif {
-  public readonly cif: string;
+  public readonly CIF: string;
 
-  private constructor (cif: string) {
-    this.cif = cif;
+  private constructor (CIF: string) {
+    this.CIF = CIF;
   }
 
-  public static create(cif: string): Cif {
+  public static create(CIF: string): Cif {
     const CIF_PATTERN = /^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/;
 
-    if(!cif) {
+    if(!CIF) {
       throw new MandatoryFieldException("CIF");
     }
-    if(!CIF_PATTERN.test(cif)) {
+    if(!CIF_PATTERN.test(CIF)) {
       throw new CifFormatException();
     }
-    return new Cif(cif);
+    return new Cif(CIF);
   }
 
   public getCif(): string {
-    return this.cif;
+    return this.CIF;
   }
 }
