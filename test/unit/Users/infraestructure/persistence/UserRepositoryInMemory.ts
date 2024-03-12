@@ -12,10 +12,10 @@ export class UserRepositoryInMemory implements UserRepository {
     });
   };
 
-  getUserByCif = async (cif: Cif): Promise<User | null> => {
+  getUserByCif = async (CIF: Cif): Promise<User | null> => {
     return await new Promise((resolve) => {
       const user: User | undefined = this.users.find((user) => {
-        return user.cif === cif.getCif();
+        return user.CIF === CIF.getCif();
       });
 
       if(user) resolve(user);

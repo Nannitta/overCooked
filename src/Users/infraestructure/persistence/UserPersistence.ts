@@ -21,7 +21,7 @@ export class UserPersistence implements UserRepository {
       [
         userId,
         user.companyName,
-        user.cif,
+        user.CIF,
         user.email,
         hashedPassword,
         user.phone,
@@ -42,7 +42,7 @@ export class UserPersistence implements UserRepository {
 
     const [result] = await pool.query(
       "SELECT userId FROM users WHERE CIF = ?",
-      [cif.cif]
+      [cif.CIF]
     );
 
     if (result[0] === undefined) {
