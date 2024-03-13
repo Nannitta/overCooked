@@ -3,6 +3,7 @@ import "dotenv/config";
 import type { Application, NextFunction, Request, Response } from "express";
 import { userRouter } from "./src/shared/infraestructure/restApi/userRouter.ts";
 import { exceptionHandler } from "./src/shared/aplicación/middlewares/exceptionHandler.ts";
+import type { Server } from "http";
 
 const { PORT } = process.env;
 
@@ -22,6 +23,10 @@ app.use((_: Request, res: Response) => {
   });
 });
 
-app.listen(PORT, () => {
+const server: Server = app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);
 });
+
+export function closeServer(): void {
+  server.close();
+}
