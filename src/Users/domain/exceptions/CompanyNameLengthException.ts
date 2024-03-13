@@ -3,7 +3,7 @@ import { EXCEPTION_CODES } from "../../../shared/domain/exceptions/ExceptionCode
 
 export class CompanyNameLengthException extends BaseException {
   constructor() {
-    const message = "El nombre de la compañía debe de tener entre 2 y 100 caracteres";
+    const message = "El nombre de la compañía debe tener entre 2 y 100 caracteres";
     super(EXCEPTION_CODES.COMPANYNAME_LENGTH, message);
   }
 };
