@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mysqlhost:
+    image: mysql
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQL_DATABASE
+    volumes:
+      - ./escandallos.sql:/docker-entrypoint-initdb.d/escandallos.sql
+    ports:
+      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
+
+  app:
+    build: .
+    depends_on:
+      - mysqlhost
+    links:
+      - mysqlhost
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    volumes:
+      - .:/overcooked
+      - /overcooked/node_modules/
+    command: sh -c "npm install && npm run dev"

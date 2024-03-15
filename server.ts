@@ -5,7 +5,7 @@ import { userRouter } from "./src/shared/infraestructure/restApi/userRouter.ts";
 import { exceptionHandler } from "./src/shared/aplicación/middlewares/exceptionHandler.ts";
 import type { Server } from "http";
 
-const { PORT } = process.env;
+const { NODE_DOCKER_PORT } = process.env;
 
 export const app: Application = express();
 app.use(express.json());
@@ -23,8 +23,8 @@ app.use((_: Request, res: Response) => {
   });
 });
 
-const server: Server = app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
+const server: Server = app.listen(NODE_DOCKER_PORT ?? 3000, () => {
+  console.log(`Server listening at http://localhost:${NODE_DOCKER_PORT}`);
 });
 
 export function closeServer(): void {
