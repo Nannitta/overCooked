@@ -15,14 +15,7 @@ export class PostUserController {
         req.body.CIF as string,
         req.body.email as string,
         req.body.password as string,
-        req.body.phone as string,
-        req.body.address as string,
-        req.body.city as string,
-        req.body.country as string,
-        req.body.province as string,
-        req.body.postalCode as string,
-        req.body.role as string,
-        (req.body.web ?? null) as string || null
+        req.body.role as string
       );
       res.status(200).send({
         status: "Ok",

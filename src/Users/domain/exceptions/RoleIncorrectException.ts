@@ -3,7 +3,7 @@ import { EXCEPTION_CODES } from "../../../shared/domain/exceptions/ExceptionCode
 
 export class RoleIncorrectException extends BaseException {
   constructor() {
-    const message = "El Rol debe ser Restaurante o Provedor";
+    const message = "El Rol debe ser Restaurante o Proveedor";
     super(EXCEPTION_CODES.ROLE_INCORRECT, message);
   }
 };

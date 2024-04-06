@@ -16,21 +16,14 @@ export class UserPersistence implements UserRepository {
     const hashedPassword: string = await bcrypt.hash(user.password, 10);
 
     await pool.query(
-      `INSERT INTO users (userId, companyName, CIF, email, password, phone, address, city, country, province, postalCode, web, activationCode, createdAt)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO users (userId, companyName, CIF, email, password, activationCode, createdAt)
+        VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
         userId,
         user.companyName,
         user.CIF,
         user.email,
         hashedPassword,
-        user.phone,
-        user.address,
-        user.city,
-        user.country,
-        user.province,
-        user.postalCode,
-        user.web,
         activationCode,
         new Date()
       ]
