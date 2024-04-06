@@ -20,8 +20,7 @@ describe("Unit test to create user useCase", () => {
 
       await userRepositoryInMemory.postUser(user);
 
-      await createUserUseCase.execute(user.companyName, user.CIF, user.email, user.password, user.phone,
-        user.address, user.city, user.country, user.province, user.postalCode, user.role, user.web);
+      await createUserUseCase.execute(user.companyName, user.CIF, user.email, user.password, user.role);
     } catch (error) {
       expect(error).toBeInstanceOf(CifAlreadyExistsException);
     }
@@ -30,8 +29,7 @@ describe("Unit test to create user useCase", () => {
   it("Should create an user", async () => {
     const userRandom = new UserMother().random();
 
-    await createUserUseCase.execute(userRandom.companyName, userRandom.CIF, userRandom.email, userRandom.password, userRandom.phone,
-      userRandom.address, userRandom.city, userRandom.country, userRandom.province, userRandom.postalCode, userRandom.role, userRandom.web);
+    await createUserUseCase.execute(userRandom.companyName, userRandom.CIF, userRandom.email, userRandom.password, userRandom.role);
 
     const user: User | null = await userRepositoryInMemory.getUserByCif(Cif.create(userRandom.CIF));
 
