@@ -1,4 +1,4 @@
-import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { MandatoryFieldException } from "../exceptions/MandatoryFieldException.ts";
 import { EmailFormatException } from "../exceptions/EmailFormatException.ts";
 import { EmailLengthException } from "../exceptions/EmailLengthException.ts";
 

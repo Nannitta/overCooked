@@ -1,7 +1,7 @@
 import { CreateUserUseCase } from "../../../../src/Users/application/useCases/CreateUserUseCase.ts";
 import type { User } from "../../../../src/Users/domain/entities/User.ts";
-import { CifAlreadyExistsException } from "../../../../src/Users/domain/exceptions/CifAlreadyExistsException.ts";
-import { Cif } from "../../../../src/Users/domain/valueObjects/Cif.ts";
+import { CifAlreadyExistsException } from "../../../../src/shared/domain/exceptions/CifAlreadyExistsException.ts";
+import { Cif } from "../../../../src/shared/domain/valueObjects/Cif.ts";
 import { UserMother } from "../domain/mothers/userMother.ts";
 import { UserRepositoryInMemory } from "../infraestructure/persistence/UserRepositoryInMemory.ts";
 

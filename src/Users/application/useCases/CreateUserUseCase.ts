@@ -1,9 +1,9 @@
 import { User } from "../../domain/entities/User.ts";
-import { CifAlreadyExistsException } from "../../domain/exceptions/CifAlreadyExistsException.ts";
+import { CifAlreadyExistsException } from "../../../shared/domain/exceptions/CifAlreadyExistsException.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
-import { Cif } from "../../domain/valueObjects/Cif.ts";
-import { CompanyName } from "../../domain/valueObjects/CompanyName.ts";
-import { Email } from "../../domain/valueObjects/Email.ts";
+import { Cif } from "../../../shared/domain/valueObjects/Cif.ts";
+import { CompanyName } from "../../../shared/domain/valueObjects/CompanyName.ts";
+import { Email } from "../../../shared/domain/valueObjects/Email.ts";
 import { Password } from "../../domain/valueObjects/Password.ts";
 import { Role } from "../../domain/valueObjects/Role.ts";
 import type { UUID } from "node:crypto";
