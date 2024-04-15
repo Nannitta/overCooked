@@ -1,7 +1,8 @@
+import type { Controller } from "../../../shared/infraestructure/controllers/Controller.ts";
 import type { CreateUserUseCase } from "../../application/useCases/CreateUserUseCase.ts";
 import type { NextFunction, Request, Response } from "express";
 
-export class PostUserController {
+export class PostUserController implements Controller {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
 
   execute = async (

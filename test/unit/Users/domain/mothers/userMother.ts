@@ -1,7 +1,7 @@
 import { User } from "../../../../../src/Users/domain/entities/User.ts";
-import { Cif } from "../../../../../src/Users/domain/valueObjects/Cif.ts";
-import { CompanyName } from "../../../../../src/Users/domain/valueObjects/CompanyName.ts";
-import { Email } from "../../../../../src/Users/domain/valueObjects/Email.ts";
+import { Cif } from "../../../../../src/shared/domain/valueObjects/Cif.ts";
+import { CompanyName } from "../../../../../src/shared/domain/valueObjects/CompanyName.ts";
+import { Email } from "../../../../../src/shared/domain/valueObjects/Email.ts";
 import { Password } from "../../../../../src/Users/domain/valueObjects/Password.ts";
 import { Role } from "../../../../../src/Users/domain/valueObjects/Role.ts";
 

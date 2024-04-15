@@ -1,6 +1,6 @@
 import type { User } from "../../../../../src/Users/domain/entities/User.ts";
 import type { UserRepository } from "../../../../../src/Users/domain/repositories/UserRepository.ts";
-import type { Cif } from "../../../../../src/Users/domain/valueObjects/Cif.ts";
+import type { Cif } from "../../../../../src/shared/domain/valueObjects/Cif.ts";
 
 export class UserRepositoryInMemory implements UserRepository {
   private readonly users: User[] = [];

@@ -1,7 +1,7 @@
 import type { UUID } from "node:crypto";
-import type { Cif } from "../valueObjects/Cif.ts";
-import type { CompanyName } from "../valueObjects/CompanyName.ts";
-import type { Email } from "../valueObjects/Email.ts";
+import type { Cif } from "../../../shared/domain/valueObjects/Cif.ts";
+import type { CompanyName } from "../../../shared/domain/valueObjects/CompanyName.ts";
+import type { Email } from "../../../shared/domain/valueObjects/Email.ts";
 import type { Password } from "../valueObjects/Password.ts";
 import type { Role } from "../valueObjects/Role.ts";
 

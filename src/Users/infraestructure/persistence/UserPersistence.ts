@@ -3,7 +3,7 @@ import type { User } from "../../domain/entities/User.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import bcrypt from "bcrypt";
 import { generateUUID } from "../../../shared/infraestructure/utils/generateUUID.ts";
-import type { Cif } from "../../domain/valueObjects/Cif.ts";
+import type { Cif } from "../../../shared/domain/valueObjects/Cif.ts";
 import type { UUID } from "node:crypto";
 
 export class UserPersistence implements UserRepository {

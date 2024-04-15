@@ -1,4 +1,4 @@
-import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { MandatoryFieldException } from "../exceptions/MandatoryFieldException.ts";
 import { CifFormatException } from "../exceptions/CifFormatException.ts";
 
 export class Cif {

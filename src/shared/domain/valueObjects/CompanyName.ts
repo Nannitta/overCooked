@@ -1,4 +1,4 @@
-import { MandatoryFieldException } from "../../../shared/domain/exceptions/MandatoryFieldException.ts";
+import { MandatoryFieldException } from "../exceptions/MandatoryFieldException.ts";
 import { CompanyNameLengthException } from "../exceptions/CompanyNameLengthException.ts";
 
 export class CompanyName {

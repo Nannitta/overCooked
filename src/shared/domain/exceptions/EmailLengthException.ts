@@ -1,5 +1,5 @@
-import { BaseException } from "../../../shared/domain/exceptions/BaseException.ts";
-import { EXCEPTION_CODES } from "../../../shared/domain/exceptions/ExceptionCodes.ts";
+import { BaseException } from "./BaseException.ts";
+import { EXCEPTION_CODES } from "./ExceptionCodes.ts";
 
 export class EmailLengthException extends BaseException {
   constructor() {
