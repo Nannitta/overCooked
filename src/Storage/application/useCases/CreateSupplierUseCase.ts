@@ -12,16 +12,16 @@ export class CreateSupplierUseCase {
 
   execute = async (
     supplierName: string,
-    email: string,
     cif: string,
+    email: string,
     phone: string,
     createdAt?: Date,
     modifiedAt?: Date,
     supplierId?: UUID
   ): Promise<void> => {
     const supplierNamePersistence = CompanyName.create(supplierName);
-    const emailPersistence = Email.create(email);
     const cifPersistence = Cif.create(cif);
+    const emailPersistence = Email.create(email);
     const phonePersistence = Phone.create(phone);
 
     const checkSupplier = await this.supplierRepository.getSupplierByCif(cifPersistence);
@@ -30,8 +30,8 @@ export class CreateSupplierUseCase {
 
     const supplier = Supplier.create(
       supplierNamePersistence,
-      emailPersistence,
       cifPersistence,
+      emailPersistence,
       phonePersistence,
       createdAt,
       modifiedAt,

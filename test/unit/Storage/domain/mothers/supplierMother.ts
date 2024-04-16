@@ -8,8 +8,8 @@ export class SupplierMother {
   public random = (): Supplier => {
     const supplier = Supplier.create(
       CompanyName.create("Ejemplo"),
-      Email.create("ejemplo@gmail.com"),
       Cif.create("B1234567B"),
+      Email.create("ejemplo@gmail.com"),
       Phone.create("+34-658954236")
     );
     return supplier;

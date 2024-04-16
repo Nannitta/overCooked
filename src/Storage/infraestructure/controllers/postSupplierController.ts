@@ -17,6 +17,7 @@ export class PostSupplierController implements Controller {
         req.body.email as string,
         req.body.phone as string
       );
+
       res.status(200).send({
         status: "Ok",
         message: "Proveedor añadido correctamente"
