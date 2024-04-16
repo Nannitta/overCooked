@@ -11,7 +11,9 @@ describe("Unit test to create supplier useCase", () => {
 
   beforeEach(() => {
     supplierRespositoryInMemory = new SupplierRespositoryInMemory();
-    createSupplierUseCase = new CreateSupplierUseCase(supplierRespositoryInMemory);
+    createSupplierUseCase = new CreateSupplierUseCase(
+      supplierRespositoryInMemory
+    );
   });
 
   it("Should throw an error when given a supplier's cif already exists", async () => {
@@ -20,7 +22,12 @@ describe("Unit test to create supplier useCase", () => {
 
       await supplierRespositoryInMemory.postSupplier(supplier);
 
-      await createSupplierUseCase.execute(supplier.supplierName, supplier.email, supplier.cif, supplier.phone);
+      await createSupplierUseCase.execute(
+        supplier.supplierName,
+        supplier.cif,
+        supplier.email,
+        supplier.phone
+      );
     } catch (error) {
       expect(error).toBeInstanceOf(CifAlreadyExistsException);
     }
@@ -29,9 +36,17 @@ describe("Unit test to create supplier useCase", () => {
   it("Should create a supplier", async () => {
     const supplierRandom = new SupplierMother().random();
 
-    await createSupplierUseCase.execute(supplierRandom.supplierName, supplierRandom.email, supplierRandom.cif, supplierRandom.phone);
+    await createSupplierUseCase.execute(
+      supplierRandom.supplierName,
+      supplierRandom.cif,
+      supplierRandom.email,
+      supplierRandom.phone
+    );
 
-    const supplier: Supplier | null = await supplierRespositoryInMemory.getSupplierByCif(Cif.create(supplierRandom.cif));
+    const supplier: Supplier | null =
+      await supplierRespositoryInMemory.getSupplierByCif(
+        Cif.create(supplierRandom.cif)
+      );
 
     expect(supplier?.cif).toEqual(supplierRandom.cif);
   });
