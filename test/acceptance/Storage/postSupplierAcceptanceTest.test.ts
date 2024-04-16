@@ -18,9 +18,10 @@ describe("Acceptance test for post supplier", () => {
     const mockedPostSupplier = mockedSupplierPersistence.prototype.postSupplier.mockResolvedValue();
 
     const response = await request(app)
-      .post("/user/addSupplier")
+      .post("/storage/addSupplier")
       .send(supplier)
       .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
       .expect(200);
     expect(response.body).toEqual({
       status: "Ok",

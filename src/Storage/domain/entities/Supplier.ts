@@ -7,8 +7,8 @@ import type { Phone } from "../../../shared/domain/valueObjects/Phone.ts";
 export class Supplier {
   private constructor(
     public readonly supplierName: string,
-    public readonly email: string,
     public readonly cif: string,
+    public readonly email: string,
     public readonly phone: string,
     public readonly createdAt?: Date,
     public readonly modifiedAt?: Date,
@@ -17,8 +17,8 @@ export class Supplier {
 
   public static create(
     supplierName: CompanyName,
-    email: Email,
     cif: Cif,
+    email: Email,
     phone: Phone,
     createdAt?: Date,
     modifiedAt?: Date,
@@ -26,8 +26,8 @@ export class Supplier {
   ): Supplier {
     return new Supplier(
       supplierName.getCompanyName(),
-      email.getEmail(),
       cif.getCif(),
+      email.getEmail(),
       phone.getPhone(),
       createdAt,
       modifiedAt,
