@@ -12,18 +12,18 @@ export class SupplierPersistence implements SupplierRespository {
     const supplierId: UUID = generateUUID();
 
     await pool.query(
-      `INSERT INTO suppliers (supplierId, supplierName, cif, email, phone, createdAt)
-        VALUES(?, ?, ?, ?, ?, ?, ?)`,
-      [supplierId, supplier.supplierName, supplier.cif, supplier.email, supplier.phone, new Date()]
+      `INSERT INTO suppliers (supplierId, supplierName, CIF, email, phone, createdAt)
+        VALUES(?, ?, ?, ?, ?, ?)`,
+      [supplierId, supplier.supplierName, supplier.CIF, supplier.email, supplier.phone, new Date()]
     );
   }
 
-  async getSupplierByCif (cif: Cif): Promise<Supplier | null> {
+  async getSupplierByCif (CIF: Cif): Promise<Supplier | null> {
     const pool = getPool();
 
     const [result] = await pool.query(
       "SELECT supplierId FROM suppliers WHERE CIF = ?",
-      [cif.CIF]
+      [CIF.CIF]
     );
 
     if(result[0] === undefined) {

@@ -24,7 +24,7 @@ describe("Unit test to create supplier useCase", () => {
 
       await createSupplierUseCase.execute(
         supplier.supplierName,
-        supplier.cif,
+        supplier.CIF,
         supplier.email,
         supplier.phone
       );
@@ -38,16 +38,16 @@ describe("Unit test to create supplier useCase", () => {
 
     await createSupplierUseCase.execute(
       supplierRandom.supplierName,
-      supplierRandom.cif,
+      supplierRandom.CIF,
       supplierRandom.email,
       supplierRandom.phone
     );
 
     const supplier: Supplier | null =
       await supplierRespositoryInMemory.getSupplierByCif(
-        Cif.create(supplierRandom.cif)
+        Cif.create(supplierRandom.CIF)
       );
 
-    expect(supplier?.cif).toEqual(supplierRandom.cif);
+    expect(supplier?.CIF).toEqual(supplierRandom.CIF);
   });
 });

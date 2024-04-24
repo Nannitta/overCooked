@@ -3,5 +3,5 @@ import type { Supplier } from "../entities/Supplier.ts";
 
 export interface SupplierRespository {
   postSupplier: (supplier: Supplier) => Promise<void>
-  getSupplierByCif: (cif: Cif) => Promise<Supplier | null>
+  getSupplierByCif: (CIF: Cif) => Promise<Supplier | null>
 }

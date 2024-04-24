@@ -12,10 +12,10 @@ export class SupplierRespositoryInMemory implements SupplierRespository {
     });
   };
 
-  getSupplierByCif = async (cif: Cif): Promise<Supplier | null> => {
+  getSupplierByCif = async (CIF: Cif): Promise<Supplier | null> => {
     return await new Promise((resolve) => {
       const supplier: Supplier | undefined = this.suppliers.find((supplier) => {
-        return supplier.cif === cif.getCif();
+        return supplier.CIF === CIF.getCif();
       });
 
       if(supplier) resolve(supplier);
