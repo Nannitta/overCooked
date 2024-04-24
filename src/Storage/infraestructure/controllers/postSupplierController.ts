@@ -13,7 +13,7 @@ export class PostSupplierController implements Controller {
     try {
       await this.createSupplierUseCase.execute(
         req.body.supplierName as string,
-        req.body.cif as string,
+        req.body.CIF as string,
         req.body.email as string,
         req.body.phone as string
       );
