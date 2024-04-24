@@ -12,6 +12,7 @@ export class User {
     public readonly email: string,
     public readonly password: string,
     public readonly role: string,
+    public readonly activationCode?: string,
     public readonly createdAt?: Date,
     public readonly modifiedAt?: Date,
     public readonly userId?: UUID
@@ -23,6 +24,7 @@ export class User {
     email: Email,
     password: Password,
     role: Role,
+    activationCode?: UUID,
     createdAt?: Date,
     modifiedAt?: Date,
     userId?: UUID
@@ -33,6 +35,7 @@ export class User {
       email.getEmail(),
       password.getPassword(),
       role.getRole(),
+      activationCode,
       createdAt,
       modifiedAt,
       userId

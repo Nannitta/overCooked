@@ -39,6 +39,8 @@ const mapErrorCodeToHTTPCode = (error: BaseException): number => {
       return HTTP_STATUS.BAD_REQUEST;
     case EXCEPTION_CODES.ROLE_INCORRECT:
       return HTTP_STATUS.BAD_REQUEST;
+    case EXCEPTION_CODES.ACTIVATED_USER:
+      return HTTP_STATUS.BAD_REQUEST;
   }
 };
 

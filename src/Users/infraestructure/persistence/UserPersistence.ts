@@ -46,4 +46,21 @@ export class UserPersistence implements UserRepository {
 
     return user;
   }
+
+  async getActivatedUser (userId: UUID): Promise <UUID | null> {
+    const pool = getPool();
+
+    const [result] = await pool.query(
+      "SELECT activationCode FROM users WHERE userId = ?",
+      [userId]
+    );
+
+    if (result[0] === undefined) {
+      return null;
+    }
+
+    const activatedUser = result[0];
+
+    return activatedUser;
+  }
 }

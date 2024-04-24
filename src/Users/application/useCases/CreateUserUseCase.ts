@@ -17,6 +17,7 @@ export class CreateUserUseCase {
     email: string,
     password: string,
     role: string,
+    activationCode?: UUID,
     createdAt?: Date,
     modifiedAt?: Date,
     userId?: UUID
@@ -37,6 +38,7 @@ export class CreateUserUseCase {
       emailPersistence,
       passwordPersistence,
       rolePersistence,
+      activationCode,
       createdAt,
       modifiedAt,
       userId
