@@ -12,4 +12,4 @@ unit:
 
 .PHONY: e2e
 e2e:
-	START_SERVER=false docker compose exec app npm run test:e2e
+	docker compose exec -e START_SERVER=false app npm run test:e2e
