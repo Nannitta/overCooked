@@ -14,6 +14,8 @@ services:
 
   app:
     build: .
+    environment:
+      - START_SERVER=true
     depends_on:
       - mysqlhost
     links:
