@@ -6,7 +6,7 @@ import { exceptionHandler } from "./src/shared/aplicación/middlewares/exception
 import type { Server } from "http";
 import { storageRouter } from "./src/shared/infraestructure/restApi/storageRouter.ts";
 
-const { NODE_DOCKER_PORT } = process.env;
+const { NODE_DOCKER_PORT, START_SERVER } = process.env;
 
 export const app: Application = express();
 app.use(express.json());
@@ -25,10 +25,16 @@ app.use((_: Request, res: Response) => {
   });
 });
 
-const server: Server = app.listen(NODE_DOCKER_PORT ?? 3000, () => {
-  console.log(`Server listening at http://localhost:${NODE_DOCKER_PORT}`);
-});
+let server: Server | null = null;
+
+if (START_SERVER && START_SERVER.toLowerCase() === "true") {
+  server = app.listen(NODE_DOCKER_PORT ?? 3000, () => {
+    console.log(`Server listening at http://localhost:${NODE_DOCKER_PORT}`);
+  });
+}
 
 export function closeServer(): void {
-  server.close();
+  if (server) {
+    server.close();
+  }
 }
