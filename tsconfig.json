@@ -22,5 +22,5 @@
   "ts-node": {
     "esm": true
   },
-  "include": ["src/", "server.ts", "src/shared/infraestructure/db", "test/", "jest.config.mjs"]
+  "include": ["src/", "server.ts", "src/shared/infraestructure/db", "test/", "jest.config.mjs", "data-database.ts"]
 }

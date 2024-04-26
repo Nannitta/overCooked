@@ -25,8 +25,8 @@ describe("Unit test to create supplier useCase", () => {
       await createSupplierUseCase.execute(
         supplier.supplierName,
         supplier.CIF,
-        supplier.email,
-        supplier.phone
+        supplier.phone,
+        supplier.email
       );
     } catch (error) {
       expect(error).toBeInstanceOf(CifAlreadyExistsException);
@@ -39,8 +39,8 @@ describe("Unit test to create supplier useCase", () => {
     await createSupplierUseCase.execute(
       supplierRandom.supplierName,
       supplierRandom.CIF,
-      supplierRandom.email,
-      supplierRandom.phone
+      supplierRandom.phone,
+      supplierRandom.email
     );
 
     const supplier: Supplier | null =

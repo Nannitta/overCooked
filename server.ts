@@ -5,6 +5,7 @@ import { userRouter } from "./src/shared/infraestructure/restApi/userRouter.ts";
 import { exceptionHandler } from "./src/shared/aplicación/middlewares/exceptionHandler.ts";
 import type { Server } from "http";
 import { storageRouter } from "./src/shared/infraestructure/restApi/storageRouter.ts";
+import { testConnection, syncDB } from "./src/shared/infraestructure/db/services/serviceDB.ts";
 
 const { NODE_DOCKER_PORT, START_SERVER } = process.env;
 
@@ -27,11 +28,20 @@ app.use((_: Request, res: Response) => {
 
 let server: Server | null = null;
 
-if (START_SERVER && START_SERVER.toLowerCase() === "true") {
-  server = app.listen(NODE_DOCKER_PORT ?? 3000, () => {
-    console.log(`Server listening at http://localhost:${NODE_DOCKER_PORT}`);
+testConnection().then(() => {
+  syncDB().then(() => {
+    if (START_SERVER && START_SERVER.toLowerCase() === "true") {
+      server = app.listen(NODE_DOCKER_PORT ?? 3000, () => {
+        console.log(`Server listening at http://localhost:${NODE_DOCKER_PORT}`);
+      });
+    }
+  }).catch((error) => {
+    console.error("Error testing database connection:", error);
+    throw error;
   });
-}
+}).catch((error) => {
+  console.error(error);
+});
 
 export function closeServer(): void {
   if (server) {

@@ -2,9 +2,13 @@
 up:
 	docker compose up
 
+.PHONY: down
+down:
+	docker compose down
+
 .PHONY: mysql
 mysql:
-	docker exec -it 48dc0c71c01d bash
+	docker exec -it overcooked-mysqlhost-1 bash
 
 .PHONY: unit
 unit:

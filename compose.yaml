@@ -8,7 +8,7 @@ services:
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
       - MYSQL_DATABASE=$MYSQL_DATABASE
     volumes:
-      - ./escandallos.sql:/docker-entrypoint-initdb.d/escandallos.sql
+      - ./data-database.ts:/docker-entrypoint-initdb.d/data-database.ts
     ports:
       - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
 
