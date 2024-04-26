@@ -18,6 +18,7 @@ export class PostUserController implements Controller {
         req.body.password as string,
         req.body.role as string
       );
+
       res.status(200).send({
         status: "Ok",
         message: "Usuario creado correctamente",

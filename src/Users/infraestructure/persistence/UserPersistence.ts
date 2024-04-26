@@ -1,53 +1,43 @@
-import { getPool } from "../../../shared/infraestructure/db/connectDB.ts";
 import type { User } from "../../domain/entities/User.ts";
 import type { UserRepository } from "../../domain/repositories/UserRepository.ts";
 import bcrypt from "bcrypt";
 import { generateUUID } from "../../../shared/infraestructure/utils/generateUUID.ts";
 import type { Cif } from "../../../shared/domain/valueObjects/Cif.ts";
 import type { UUID } from "node:crypto";
+import Users from "../../../shared/infraestructure/db/models/Users.ts";
 
 export class UserPersistence implements UserRepository {
   async postUser (user: User): Promise<void> {
-    const pool = getPool();
-
     const userId: UUID = generateUUID();
     const activationCode: UUID = generateUUID();
 
     const hashedPassword: string = await bcrypt.hash(user.password, 10);
 
-    await pool.query(
-      `INSERT INTO users (userId, companyName, CIF, email, password, activationCode, createdAt)
-        VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [
+    await Users.create(
+      {
         userId,
-        user.companyName,
-        user.CIF,
-        user.email,
-        hashedPassword,
-        activationCode,
-        new Date()
-      ]
+        companyName: user.companyName,
+        CIF: user.CIF,
+        email: user.email,
+        password: hashedPassword,
+        activationCode
+      }
     );
   }
 
   async getUserByCif (cif: Cif): Promise<User | null> {
-    const pool = getPool();
+    const user = await Users.findOne({
+      where: { cif: cif.CIF }
+    });
 
-    const [result] = await pool.query(
-      "SELECT userId FROM users WHERE CIF = ?",
-      [cif.CIF]
-    );
-
-    if (result[0] === undefined) {
+    if(!user) {
       return null;
     }
 
-    const user = result[0];
-
-    return user;
+    return user.dataValues;
   }
 
-  async getActivatedUser (userId: UUID): Promise <UUID | null> {
+/*   async getActivatedUser (userId: UUID): Promise <UUID | null> {
     const pool = getPool();
 
     const [result] = await pool.query(
@@ -62,5 +52,5 @@ export class UserPersistence implements UserRepository {
     const activatedUser = result[0];
 
     return activatedUser;
-  }
+  } */
 }
