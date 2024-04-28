@@ -10,6 +10,10 @@ down:
 mysql:
 	docker exec -it overcooked-mysqlhost-1 bash
 
+.PHONY: updateDB
+updateDB:
+	docker compose exec app npm run updateDB
+
 .PHONY: unit
 unit:
 	docker compose exec app npm run test:unit
