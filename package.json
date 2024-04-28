@@ -12,7 +12,8 @@
     "lint:fix": "npm run lint -- --fix",
     "prepare": "husky install",
     "test:unit": "jest ./test/unit",
-    "test:e2e": "jest ./test/acceptance"
+    "test:e2e": "jest ./test/acceptance",
+    "updateDB": "ts-node ./data-database.ts"
   },
   "author": "",
   "license": "ISC",
