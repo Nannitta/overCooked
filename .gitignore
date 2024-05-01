@@ -1,4 +1,4 @@
 node_modules
 .env
-escandallos.sql
 data-database.ts
+init_mysql.sh
