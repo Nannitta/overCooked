@@ -1,4 +1,4 @@
-import connectionDB, { createDatabaseIfNotExists } from "../config/configDB.ts";
+import connectionDB from "../config/configDB.ts";
 import Users from "../models/Users.ts";
 import Country from "../models/Country.ts";
 import Suppliers from "../models/Suppliers.ts";
@@ -10,7 +10,6 @@ export const testConnection = async (): Promise<void> => {
   try {
     const { MYSQL_DATABASE } = process.env;
 
-    await createDatabaseIfNotExists();
     await connectionDB.authenticate();
     console.log(`Connection has been established successfully with ${MYSQL_DATABASE}`);
   } catch (error) {
