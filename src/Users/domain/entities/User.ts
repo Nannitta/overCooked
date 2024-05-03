@@ -12,7 +12,7 @@ export class User {
     public readonly email: string,
     public readonly password: string,
     public readonly role: string,
-    public readonly activationCode?: string,
+    public readonly activationCode?: UUID,
     public readonly createdAt?: Date,
     public readonly modifiedAt?: Date,
     public readonly userId?: UUID
