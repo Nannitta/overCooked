@@ -8,7 +8,7 @@ down:
 
 .PHONY: mysql
 mysql:
-	docker exec -it overcooked-mysqlhost-1 bash
+	docker exec -it mysql bash
 
 .PHONY: updateDB
 updateDB:

@@ -17,10 +17,10 @@ export class CreateUserUseCase {
     email: string,
     password: string,
     role: string,
+    userId?: UUID,
     activationCode?: UUID,
     createdAt?: Date,
-    modifiedAt?: Date,
-    userId?: UUID
+    modifiedAt?: Date
   ): Promise<void> => {
     const companyNamePersistence = CompanyName.create(companyName);
     const cifPersistence = Cif.create(CIF);
@@ -38,10 +38,10 @@ export class CreateUserUseCase {
       emailPersistence,
       passwordPersistence,
       rolePersistence,
+      userId,
       activationCode,
       createdAt,
-      modifiedAt,
-      userId
+      modifiedAt
     );
 
     await this.userRepository.postUser(user);
