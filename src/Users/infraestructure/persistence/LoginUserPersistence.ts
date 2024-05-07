@@ -34,7 +34,7 @@ export class LoginUserPersistence implements LoginUserRepository {
     return token;
   }
 
-  async getActivatedUser (email: Email): Promise <Users | null> {
+  async getActivatedUser (email: Email): Promise <User | null> {
     const user: Users | null = await Users.findOne({
       where: { email: email.email }
     });

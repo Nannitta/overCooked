@@ -2,7 +2,7 @@ import { CreateUserUseCase } from "../../../../src/Users/application/useCases/Cr
 import type { User } from "../../../../src/Users/domain/entities/User.ts";
 import { CifAlreadyExistsException } from "../../../../src/shared/domain/exceptions/CifAlreadyExistsException.ts";
 import { Cif } from "../../../../src/shared/domain/valueObjects/Cif.ts";
-import { UserMother } from "../domain/mothers/userMother.ts";
+import { CreateUserMother } from "../domain/mothers/createUserMother.ts";
 import { UserRepositoryInMemory } from "../infraestructure/persistence/UserRepositoryInMemory.ts";
 
 describe("Unit test to create user useCase", () => {
@@ -16,7 +16,7 @@ describe("Unit test to create user useCase", () => {
 
   it("Should throw an error when given an user's cif already exists", async () => {
     try {
-      const user = new UserMother().random();
+      const user = new CreateUserMother().random();
 
       await userRepositoryInMemory.postUser(user);
 
@@ -27,7 +27,7 @@ describe("Unit test to create user useCase", () => {
   });
 
   it("Should create an user", async () => {
-    const userRandom = new UserMother().random();
+    const userRandom = new CreateUserMother().random();
 
     await createUserUseCase.execute(userRandom.companyName, userRandom.CIF, userRandom.email, userRandom.password, userRandom.role);
 
